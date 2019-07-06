@@ -49,10 +49,11 @@ function newRequest(img) {
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
     var reader = new FileReader();
-    console.log()
+    console.log(reader.result)
     reader.onloadend = function () {
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode)
+        $('#picDiv').append(`<img src="${reader.result}">`)
     }
     reader.readAsDataURL(file);
 }
@@ -121,8 +122,4 @@ $(document.body).on("click", ".newButton", function () {
 
     
 });
-
-
-
-
 
