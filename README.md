@@ -1,4 +1,4 @@
-#Under Par - Project 1
+# Under Par - Project 1
 
 Project Title: Image SEO Generator
 
