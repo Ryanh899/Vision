@@ -49,10 +49,11 @@ function newRequest(img) {
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
     var reader = new FileReader();
-    console.log()
+    console.log(reader.result)
     reader.onloadend = function () {
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode)
+        $('#picDiv').append(`<img src="${reader.result}">`)
     }
     reader.readAsDataURL(file);
 }
@@ -62,5 +63,11 @@ $('#submit-button').on('click', function () {
     console.log(file.substr(12))
     console.log(requestArr[0].request)
     axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[0].request)
-        .then((response) => console.log(response));
+        .then(function (response) {
+            console.log(response.data.responses[0].webDetection.webEntities)
+            response.data.responses[0].webDetection.webEntities.forEach(function(element, i) {
+                $('#info').append(`<button class="btn btn-primary m-2" data-attribute="${response.data.responses[0].webDetection.webEntities[i].description}" id="pic-${i}">${response.data.responses[0].webDetection.webEntities[i].description}</button>`)
+            })
+        });
 })
+
