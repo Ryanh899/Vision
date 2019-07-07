@@ -1,5 +1,7 @@
 //variable for base64 images 
 var baseCode
+//incrementation variable
+var n = 0; 
 //arr of requests 
 var requestArr = [];
 //constructor for new request objs 
@@ -51,6 +53,7 @@ function encodeImageFileAsURL(element) {
     var reader = new FileReader();
     console.log(reader.result)
     reader.onloadend = function () {
+        $('#picDiv').empty()
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode)
         $('#picDiv').append(`<img src="${reader.result}">`)
@@ -59,10 +62,11 @@ function encodeImageFileAsURL(element) {
 }
 //on submit click makes axios call 
 $('#submit-button').on('click', function () {
+    $('#buttons').empty()
     var file = $('#file-upload').val()
     console.log(file.substr(12))
-    console.log(requestArr[0].request)
-    axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[0].request)
+    console.log(requestArr[n].request)
+    axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[n].request)
         .then(function (response) {
 
             let webArray = response.data.responses[0].webDetection.webEntities
@@ -82,6 +86,7 @@ $('#submit-button').on('click', function () {
             });
 
         })
+        n++
 })
 
 
