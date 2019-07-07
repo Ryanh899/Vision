@@ -49,10 +49,11 @@ function newRequest(img) {
 function encodeImageFileAsURL(element) {
     var file = element.files[0];
     var reader = new FileReader();
-    console.log()
+    console.log(reader.result)
     reader.onloadend = function () {
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode)
+        $('#picDiv').append(`<img src="${reader.result}">`)
     }
     reader.readAsDataURL(file);
 }
@@ -62,5 +63,76 @@ $('#submit-button').on('click', function () {
     console.log(file.substr(12))
     console.log(requestArr[0].request)
     axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[0].request)
-        .then((response) => console.log(response));
+        .then(function (response) {
+
+            let webArray = response.data.responses[0].webDetection.webEntities
+
+            console.log(webArray)
+
+            webArray.forEach(function (element) {
+                let newButton = (`<button class='btn newButton btn-primary mt-1 mb-1 ml-1 mr-1' value='${element.description}'> ${element.description}`)
+
+
+
+                $('#buttons').append(newButton)
+
+                console.log(element)
+
+
+            });
+
+        })
 })
+
+
+$(document.body).on("click", ".newButton", function () {
+
+
+    // search term
+    var searchQuery = $(this).attr('value')
+
+    console.log(searchQuery)
+
+    // key to api
+    var apiKey = '00c5bc8f-694b-401c-8e1a-3d53225e08f3';
+
+    // search term with apikey
+    var apiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+    $.get({
+        url: apiRoute
+    }).done(function (response) {
+        // check console for return obj
+        console.log(response);
+
+
+        let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0]
+
+
+
+
+        synonymArray.forEach(function (element) {
+            console.log(element.wd)
+            $('.results').append('<div>').append(element.wd)
+        });
+    });
+
+//next api call
+
+
+
+    
+});
+
+jQuery(document).ready(function() {
+	jQuery('.tabs .tab-links a').on('click', function(e) {
+		var currentAttrValue = jQuery(this).attr('href');
+
+		// Show/Hide Tabs
+		jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+
+		// Change/remove current tab to active
+		jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+		e.preventDefault();
+	});
+});
