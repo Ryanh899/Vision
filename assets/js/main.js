@@ -123,6 +123,7 @@ $(document.body).on("click", ".newButton", function () {
     
 });
 
+
 jQuery(document).ready(function() {
 	jQuery('.tabs .tab-links a').on('click', function(e) {
 		var currentAttrValue = jQuery(this).attr('href');
@@ -136,3 +137,4 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 	});
 });
+

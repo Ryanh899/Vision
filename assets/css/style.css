@@ -1,6 +1,7 @@
 img {
     height: 200px; 
     width: 300px; 
+
 }
 
 /*----- Tabs -----*/
@@ -79,4 +80,5 @@ li.active a, li.active a:hover {
     background-color: yellow;
     min-height: 300px;
     
+
 }
