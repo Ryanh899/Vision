@@ -62,7 +62,11 @@ $('#submit-button').on('click', function () {
     console.log(`File: ${file}`)
     console.log(`Filename: ${file.substr(12)}`)
     console.log(requestArr[0].request)
+
+    // post method to google vision
     var bestLabel;
+    $('#info').append('<div id="message">')
+    $('#message').text(`File named "${file.substr(12)}" has been uploaded! One sec while we anaylze the image...`)
     axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[0].request)
         .then(function (response) {
             console.log(`response: ${response}`)
@@ -71,13 +75,23 @@ $('#submit-button').on('click', function () {
 
             // pass bestLabel into urban-dictionary-api
             var searchQuery = bestLabel;
+
+            // tell user that it picked a keyword from image to find the definition for
+
+            $('#message').text(`Based on the Image uploaded, it is strongly indicated that it's a "${searchQuery}".`)
+
+            // creating variables and ajax call to get urban dictionary api
             var apiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
             $.get({
                 url: apiRoute
             }).done(function (urbanResponse) {
                 // chose first item in array of definitions
                 console.log(`Urban dictionary definition: ${urbanResponse.list[0].definition}`)
-                $('#info').text(urbanResponse.list[0].definition)
+   
+                // append response to dom
+                $('#message').append(`<div id="definition" class="mt-5">`)
+                $('#definition').text('Urban Dictionary Definition: ')
+                $('#definition').append(`<div id="response-data">${urbanResponse.list[0].definition}`)
             });
         });
 })
