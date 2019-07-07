@@ -1,6 +1,6 @@
 //variable for base64 images 
 var baseCode
-//arr of requests 
+//arr of requests
 var requestArr = [];
 //constructor for new request objs 
 function addRequests(picData) {
@@ -59,8 +59,25 @@ function encodeImageFileAsURL(element) {
 //on submit click makes axios call 
 $('#submit-button').on('click', function () {
     var file = $('#file-upload').val()
-    console.log(file.substr(12))
+    console.log(`File: ${file}`)
+    console.log(`Filename: ${file.substr(12)}`)
     console.log(requestArr[0].request)
+    var bestLabel;
     axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI', requestArr[0].request)
-        .then((response) => console.log(response));
+        .then(function (response) {
+            console.log(`response: ${response}`)
+            bestLabel = response.data.responses[0].webDetection.bestGuessLabels[0].label;
+            console.log(`bestLabel: ${bestLabel}`)
+
+            // pass bestLabel into urban-dictionary-api
+            var searchQuery = bestLabel;
+            var apiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
+            $.get({
+                url: apiRoute
+            }).done(function (urbanResponse) {
+                // chose first item in array of definitions
+                console.log(`Urban dictionary definition: ${urbanResponse.list[0].definition}`)
+                $('#info').text(urbanResponse.list[0].definition)
+            });
+        });
 })
