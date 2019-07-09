@@ -1,7 +1,7 @@
 //variable for base64 images 
 var baseCode
 //incrementation variable
-var n = 0; 
+var n = 0;
 //arr of requests 
 var requestArr = [];
 //constructor for new request objs 
@@ -56,7 +56,7 @@ function encodeImageFileAsURL(element) {
         $('#picDiv').empty()
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode)
-        $('#picDiv').append(`<img src="${reader.result}">`)
+        $('#picDiv').append(`<img class="img-thumbnail img-responsive" src="${reader.result}">`)
     }
     reader.readAsDataURL(file);
 }
@@ -79,14 +79,13 @@ $('#submit-button').on('click', function () {
 
 
                 $('#buttons').append(newButton)
-
                 console.log(element)
 
 
             });
 
         })
-        n++
+    n++
 })
 
 
@@ -117,29 +116,37 @@ $(document.body).on("click", ".newButton", function () {
 
         synonymArray.forEach(function (element) {
             console.log(element.wd)
-            $('.results').append('<div>').append(element.wd)
+            $('.results').append('<div> ').append(element.wd)
         });
     });
 
-//next api call
+    //next api call
 
 
 
-    
+
 });
 
+// Tabs Transition 
+jQuery(document).ready(function () {
+    jQuery('.tabs .tab-links a').on('click', function (e) {
+        var currentAttrValue = jQuery(this).attr('href');
 
-jQuery(document).ready(function() {
-	jQuery('.tabs .tab-links a').on('click', function(e) {
-		var currentAttrValue = jQuery(this).attr('href');
+        // Show/Hide Tabs
+        jQuery('.tabs ' + currentAttrValue).fadeIn(1000).siblings().hide();
 
-		// Show/Hide Tabs
-		jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
 
-		// Change/remove current tab to active
-		jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
-
-		e.preventDefault();
-	});
+        e.preventDefault();
+    });
 });
 
+//Copy Text to the Clipboard
+function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+  }
