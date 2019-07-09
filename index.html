@@ -11,110 +11,118 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://apis.google.com/js/client.js"></script>
     <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid mainWidth">
         <div class="container">
-            <h1 class="display-4">Little bit about you</h1>
-            <p class="lead">Upload a photo of yourself, then click submit</p>
-        </div>
-    </div>
-    <div class="container file-bar">
-        <div class="row">
-            <div class="col-md-6 photoDisplay">
-                <input id="file-upload" type="file" onchange="encodeImageFileAsURL(this)" />
-                <button class="btn btn-primary mt-1" id="submit-button">submit</button>
+            <div class="row">
+                <h1 class="display-4"></i>Vision</h1>
             </div>
-    <div class="container main">
-        <div id="picDiv" class="row"></div>
-    </div>
-        <div class="row">
-            <div class="col-md-10">
-                <!-- <div id="info"></div> -->
+            <div class="row">
+                <p class="lead">A Picture is Worth a Thousand Words</p>
             </div>
-        </div>
-        </div>
-    
-
-
-    <div class="row text-center">
-
-        <div class="col-md-12">
-            <div id="buttons">
-                
-            </div>
-        </div>
-
-
-        <div class="col-md-12">
-
-            <!-- <div class="results"> -->
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="tabs">
-        <ul class="tab-links">
-            <li class="active"><a href="#tab1">Image Results</a></li>
-            <li><a href="#tab2">SEO</a></li>
-            <li><a href="#tab3">Hashtags</a></li>
-            <!-- <li><a href="#tab4">Tab #4</a></li>  -->
-        </ul>
-    
-        <div class="tab-content">
-            <div id="tab1" class="tab active">
-                <p>Image Results</p>
-                <div class="newButton"></div>
-            </div>
-    
-            <div id="tab2" class="tab">
-                <p>Search Engine Optimization Results</p>
-                <div class="results"></div>
-            </div>
-    
-            <div id="tab3" class="tab">
-                <p>Grab a Hashtag</p>
-                <div class="results"></div>
-            </div>
-    
-            <div id="tab4" class="tab">
-                <p>Tab #4 content goes here!</p>
-                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            <div class="row">
+                <p class="lead">Find Out What Yours Says:</p>
             </div>
         </div>
     </div>
-</div>
-    
-</div>
+
+    <div class="container contentMain">
+        <div class="row file-bar mainWidth">
+            <div class="row mainWidth">
+                <div class="col-md-6 photoDisplay">
+                    <div class="row mainWidth picDiv">
+                        <div class="row buttonDiv">
+                            <input id="file-upload" type="file" onchange="encodeImageFileAsURL(this)"/>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="container mainWidth">
+                    <div id="picDiv" class="row"></div>
+                </div>
+                <div class="row mainWidth">
+                    <button class="btn m-1 align-self-end" id="submit-button"><i class="fas fa-search"></i>
+                        Discover</button>
+                </div>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
-    <div class="row text-center">
-
-        <div class="col-md-12">
-            <div id="buttons">
-                
             </div>
+
+
+
+
+
         </div>
 
 
-        <div class="col-md-12">
+        <div class="tabs mainWidth">
+            <ul class="tab-links">
+                <li class="active"><a href="#tab1"><i class="fas fa-image"></i> Results</a></li>
+                <li><a href="#tab2"><i class="fas fa-tags"></i> SEO</a></li>
+                <li><a href="#tab3"><i class="fas fa-hashtag"></i> Hashtags</a></li>
+                <!-- <li><a href="#tab4">Tab #4</a></li>  -->
+            </ul>
 
-            <div class="results">
+            <div class="tab-content">
+                <div id="tab1" class="tab active">
+                    <p>Image Results</p>
+                    <div class="row text-center">
 
+                        <div class="col-md-12">
+                            <div id="buttons">
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+
+                            <!-- <div class="results"> -->
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="tab2" class="tab">
+                    <p>Search Engine Optimization Results</p>
+                    <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i> Copy</button>
+                    <div class="results"></div>
+                </div>
+
+                <div id="tab3" class="tab">
+                    <p>Grab a Hashtag</p>
+                    <div class="results"></div>
+                </div>
+
+                <div id="tab4" class="tab">
+                    <p>Tab #4 content goes here!</p>
+                    <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit
+                        eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus
+                        ornare
+                        mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi.
+                        Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+                </div>
             </div>
-
         </div>
-
     </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+
 
 
 
