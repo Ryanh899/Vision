@@ -1,16 +1,54 @@
+/*Color Pallettes: (#6C98C6 - Windstorm (Darker Blue))   (#98B7D7 - Carolina Blue (lighter))   (#EF7239 - Orange Crush)   (#F3F3F3 - White Smoke)           */
+
 img {
 	height: 200px; 
 	width: 300px; 
+	margin-left: 5%;
+}
+
+body{
+	background-image: linear-gradient(-45deg, #EF7239, #98B7D7);
+	color: #6C98C6;
+	font-size: 16px;
+	font-family: 'Raleway', sans-serif;
 }
 
 
 
 
+.contentMain{
+	width:86%;
+	margin-left: 7%;
+	margin-right: 7%;
+	margin-top: 3%;
+	border: solid #f3f3f3;
+	border-radius: 5px;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	
+}
+
+.display-4{
+	margin-left: 10%;
+}
+
+.lead{
+	margin-left: 10%;
+	font-size: 18px;
+}
+
+.buttonDiv{
+	max-height: 40px;
+}
 /*----- Tabs -----*/
 .tabs {
-	width:100%;
-    display:inline-block;
-    background-color: green;
+	/* border-top: solid 5px; */
+	background-image: linear-gradient(-45deg, #6C98C6, #98B7D7);
+	padding-top: 3px;
+	display: inline-flex;
+	display: inline-block;
+	border-left: solid #f3f3f3;
+	border-right: solid #f3f3f3;
 }
 
 /*----- Tab Links -----*/
@@ -22,7 +60,7 @@ img {
 }
 
 .tab-links li {
-	margin:0px 5px;
+	margin-left: 5px;
 	float:left;
 	list-style:none;
 }
@@ -35,7 +73,7 @@ img {
 	font-size:16px;
 	font-weight:600;
 	color:#4c4c4c;
-	transition:all linear 0.15s;
+	transition:all linear 0.5s;
 }
 
 .tab-links a:hover {
@@ -44,43 +82,87 @@ img {
 }
 
 li.active a, li.active a:hover {
-	background:#fff;
-	color:#4c4c4c;
+	background:rgb(233, 145, 104);
+	color:#f3f3f3;
 }
 
 /*----- Content of Tabs -----*/
 .tab-content {
-	padding:15px;
+	padding:10px;
 	border-radius:3px;
 	box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-	background: green;
+	background: #f3f3f3;
+	border: solid #7FB5DA;
+	color: #6C98C6;
+	margin-bottom: 5px;
 }
 
 .tab {
 	display:none;
+	min-height: 300px;
+	width: 100%;
 }
 
 .tab.active {
 	display:block;
+	
 }
 
-.main{
-    margin-left: 10%;
-    margin-right: 10%;
+ul {
+	padding-inline-start: 1%;
+}
+
+.tab-links{
+	min-width: 326px;
 }
 
 .picDiv{
-    
-    margin-left: 20%;
-    margin-right: 20%;
+    width: 100%;
+    min-width: 500px;
 }
 .photoDisplay{
-    background-color: grey;
+	background-color: #f3f3f3;
+	width: 90%;
+	margin: 2%;
+	
 }
 
 .file-bar{
-    background-color: yellow;
+    background-color: #f3f3f3;
     min-height: 300px;
-    
+    width:100%;
+	
 
 }
+
+.file-upload{
+	text-align: left;  
+}
+
+.mainWidth{
+	width: 100%;
+	margin: 0;
+	
+}
+
+.jumbotron{
+	border-bottom: solid 5px #EF7239;
+	padding-top: 2%;
+	padding-bottom: 0;
+}
+
+.ml15 {
+	font-weight: 800;
+	font-size: 3.8em;
+	text-transform: uppercase;
+	letter-spacing: 0.5em;
+  }
+  
+  .ml15 .word {
+	display: inline-block;
+	line-height: 1em;
+  }
+
+  #submit-button{
+	  background-color: rgb(233, 145, 104);
+  }
