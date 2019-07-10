@@ -17,9 +17,9 @@ Display SEO/Hashtag results from Webster and Words to DOM.
 User then selects Hashtags or SEO terms and a clipboard is compiled. 
 User implements application results on social media.
 
-Project Management: https://trello.com/b/18invRsg/underpar-project
 
 Contributors (Main Contribution(s)): 
+
 
 Alex Hwong (Persistance/Problem Solving/Debugging)
 
@@ -30,6 +30,14 @@ Ryan Hazzard (Vision API)
 Vincent Nguyen (API research & Implimentation)
 
 Zac Morton (UX/UI/Design)
+
+
+
+
+
+
+
+Project Management: https://trello.com/b/18invRsg/underpar-project
 
 
 
