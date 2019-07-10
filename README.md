@@ -8,6 +8,6 @@ Task BreakDown: Upload image and convert to base64. Base64 image passed into Goo
 
 Project Management Software Link: https://trello.com/b/18invRsg/underpar-project
 
-Contributers: Zac Morton Eric Mackensen Ryan Hazzard Alex Hwong Vincent Nguyen
+Contributers: Alex Hwong, Eric Mackensen, Ryan Hazzard, Vincent Nguyen, Zac Morton
 
-//List members reponsibilities/contributions i.e. (vision api, ux/xi, wordsApi, etc) ???
+
