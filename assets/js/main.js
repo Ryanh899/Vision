@@ -59,7 +59,6 @@ function newRequest(img) {
   var addedRequest = new addRequests(img);
   requestArr.push(addedRequest);
 }
-
 //gets input file and converts to base64
 function encodeImageFileAsURL(element) {
   var file = element.files[0];
@@ -70,9 +69,10 @@ function encodeImageFileAsURL(element) {
     baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
     newRequest(baseCode);
     $("#picDiv").append(
-      `<img class="img-thumbnail img-responsive" src="${reader.result}">`
+      `<img class="rounded img-fluid" src="${reader.result}">`
     );
 
+    
     // empty buttoms and let user know that vision is searching for results
     $(".buttons").empty();
     $(".buttons").text("Searching for results");
@@ -80,7 +80,8 @@ function encodeImageFileAsURL(element) {
     console.log(file.substr(12));
     console.log(requestArr[n].request);
 
-    // axios post method to vision api; pass in the constructed object for post request
+        // axios post method to vision api; pass in the constructed object for post request
+
     axios
       .post(
         "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
@@ -88,33 +89,38 @@ function encodeImageFileAsURL(element) {
       )
       .then(function(response) {
         $(".buttons").empty();
-
         // get web entities and create new buttons for each web entity
         let webArray = response.data.responses[0].webDetection.webEntities;
         console.log(webArray);
         webArray.forEach(function(element) {
-          console.log(element);
-          let newButton = `<button class='btn newButton btn-primary mt-1 mb-1 ml-1 mr-1' value='${
+          let newButton = `<button class='btn newButton btn-secondary mt-1 mb-1 ml-1 mr-1' value='${
             element.description
           }'> ${element.description}`;
-
+  
           // taking new buttons made and append to buttons dom
           $(".buttons").append(newButton);
+  
+          console.log(element);
         });
       });
     n++;
   };
   reader.readAsDataURL(file);
 }
+//on submit click makes axios call
+
 
 // when one of the web entities is clicked, take button's value and search it in webster api for synonyms
 $(document.body).on("click", ".newButton", function() {
   // empty out results when a web entity is picked
-  $(".results").empty();
-  $(".hashTag-results").empty();
+
+  $(".results").empty()
+
+  $(".hashTag-results").empty()
 
   // search term
   var searchQuery = $(this).attr("value");
+
   console.log(searchQuery);
 
   // key to api
@@ -127,7 +133,7 @@ $(document.body).on("click", ".newButton", function() {
   }).done(function(response) {
     console.log(response);
 
-    // webster's synonym's response as an array
+    // webster's synonym's response
     let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
 
     // loop through synonym array and create hashtags / seo and append it to the DOM
@@ -138,15 +144,15 @@ $(document.body).on("click", ".newButton", function() {
       console.log(`synonym: ${element.wd}`);
       //creating buttons to push into hash and seo arrays
       $(".results").append(
-        `<button class="seo-pick btn-danger m-2" data-attribute="${result}"> ${result}`
+        `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
       );
       $(".hashTag-results").append(
-        `<button class="hash-pick btn-danger m-2" data-attribute="${hashTag}"> ${hashTag}`
+        `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
       );
     });
   });
 
-  // ajax get method to search words API and get list of synonyms
+    // ajax get method to search words API and get list of synonyms
   $.get({
     url: `https://wordsapiv1.p.mashape.com/words/${searchQuery}`,
     headers: {
@@ -158,10 +164,9 @@ $(document.body).on("click", ".newButton", function() {
       if (item.synonyms) {
         item.synonyms.forEach(function(item) {
           console.log(`***********${item}`);
+          $(".results").append(`<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`);
 
-          // add the synonyms to the dom
-          $(".results").append(`<div> ${item}`);
-          $(".hashTag-results").append(`<div> #${item}`);
+          $(".hashTag-results").append(`<button class="hash-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`);
         });
       }
     });
@@ -222,3 +227,11 @@ function copyToClipboard(element) {
   document.execCommand("copy");
   $temp.remove();
 }
+
+$('#file-upload').click(function(){
+    // empty out results when new image is uploaded
+
+    $(".results").empty()
+
+    $(".hashTag-results").empty()
+})
