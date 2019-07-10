@@ -115,15 +115,35 @@ $(document.body).on("click", ".newButton", function() {
 
   // search term
   var searchQuery = $(this).attr("value");
-  console.log(searchQuery);
 
   // key to api
   var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
 
   // search term with apikey
-  var apiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+  var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+
+  // url, no apikey needed
+  var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
+
+  console.log(
+    `Searching for: "${searchQuery}" in UrbanDic, Webster, and Words API`
+  );
+
+  // ajax get method to urban dictionary to get definition of searchquery
   $.get({
-    url: apiRoute
+    url: urbanDicApiRoute
+  }).done(function(response) {
+    console.log(`UrbanDic Response: ${response.list[0].definition}`);
+
+    // add definition to DOM
+    $(".definition").text(
+      `What the Internet thinks: ${response.list[0].definition}`
+    );
+  });
+
+  // ajax get method to webster-thesaurus api; search for synonyms and return
+  $.get({
+    url: websterApiRoute
   }).done(function(response) {
     console.log(response);
 
@@ -168,7 +188,7 @@ $(document.body).on("click", ".newButton", function() {
   });
 });
 
-//push results into SEO array
+// checks if user has already selected push results into SEO array
 $(document.body).on("click", ".seo-pick", function() {
   var seoVal = $(this).attr("data-attribute");
   console.log(seoVal);
