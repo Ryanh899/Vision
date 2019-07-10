@@ -135,6 +135,24 @@ $(document.body).on("click", ".newButton", function() {
       );
     });
   });
+  $.get({
+    url: `https://wordsapiv1.p.mashape.com/words/${searchQuery}`,
+    headers: {
+      "X-Mashape-Key": "d0365a5fecmsh001a788d875b48cp15f702jsn438745cf2e54",
+      Accept: "application/json"
+    }
+  }).done(function(wordApi) {
+    wordApi.results.forEach(function(item) {
+      if (item.synonyms) {
+        item.synonyms.forEach(function(item) {
+          console.log(`***********${item}`);
+          $(".results").append(`<div> ${item}`);
+
+          $(".hashTag-results").append(`<div> #${item}`);
+        });
+      }
+    });
+  });
 });
 
 //push results into SEO array
