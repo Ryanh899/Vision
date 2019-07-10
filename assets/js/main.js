@@ -120,6 +120,11 @@ function encodeImageFileAsURL(element) {
 
 // when one of the web entities is clicked, take button's value and search it in webster api for synonyms
 $(document.body).on("click", ".newButton", function() {
+
+  $(".results").empty()
+
+  $(".hashTag-results").empty()
+
   // search term
   var searchQuery = $(this).attr("value");
 
