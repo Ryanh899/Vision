@@ -65,40 +65,58 @@ function encodeImageFileAsURL(element) {
     $("#picDiv").append(
       `<img class="img-thumbnail img-responsive" src="${reader.result}">`
     );
+
+    
+
+
+
+
+
+
+
+
+    $(".buttons").empty();
+    $(".buttons").text("Searching for results");
+    var file = $("#file-upload").val();
+    console.log(file.substr(12));
+    console.log(requestArr[n].request);
+    axios
+      .post(
+        "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
+        requestArr[n].request
+      )
+      .then(function(response) {
+        $(".buttons").empty();
+        // get web entities and create new buttons for each web entity
+        let webArray = response.data.responses[0].webDetection.webEntities;
+        console.log(webArray);
+        webArray.forEach(function(element) {
+          let newButton = `<button class='btn newButton btn-primary mt-1 mb-1 ml-1 mr-1' value='${
+            element.description
+          }'> ${element.description}`;
+  
+          // taking new buttons made and append to buttons dom
+  
+          $(".buttons").append(newButton);
+  
+          console.log(element);
+        });
+      });
+    n++;
+
+
+
+
+
+
+
+    
+
   };
   reader.readAsDataURL(file);
 }
 //on submit click makes axios call
-$("#submit-button").on("click", function() {
-  $(".buttons").empty();
-  $(".buttons").text("Searching for results");
-  var file = $("#file-upload").val();
-  console.log(file.substr(12));
-  console.log(requestArr[n].request);
-  axios
-    .post(
-      "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
-      requestArr[n].request
-    )
-    .then(function(response) {
-      $(".buttons").empty();
-      // get web entities and create new buttons for each web entity
-      let webArray = response.data.responses[0].webDetection.webEntities;
-      console.log(webArray);
-      webArray.forEach(function(element) {
-        let newButton = `<button class='btn newButton btn-primary mt-1 mb-1 ml-1 mr-1' value='${
-          element.description
-        }'> ${element.description}`;
 
-        // taking new buttons made and append to buttons dom
-
-        $(".buttons").append(newButton);
-
-        console.log(element);
-      });
-    });
-  n++;
-});
 
 // when one of the web entities is clicked, take button's value and search it in webster api for synonyms
 $(document.body).on("click", ".newButton", function() {
