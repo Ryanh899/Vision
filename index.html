@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Vision</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <!-- google api client -->
     <script src="https://apis.google.com/js/client.js"></script>
     <link href="./assets/css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
@@ -17,6 +18,7 @@
 </head>
 
 <body>
+    <!-- header -->
     <div class="jumbotron jumbotron-fluid mainWidth">
         <div class="container">
             <div class="row">
@@ -35,6 +37,7 @@
                     <div class="row mainWidth picDiv">
                         <div class="row buttonDiv">
 
+                            <!-- upload photo -->
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -45,62 +48,41 @@
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
+
+                <!-- uploaded photo -->
                 <div class="container mainWidth">
                     <div id="picDiv" class="row"></div>
                 </div>
-                <div class="row mainWidth">
-                   
-                </div>
-
-
+                <div class="row mainWidth"></div>
             </div>
-
-
-
-
-
         </div>
 
-
+        <!-- converter tab -->
         <div class="tabs mainWidth">
             <ul class="tab-links mt-3">
-                <!-- <li class="active"><a href="#tab1"><i class="fas fa-image"></i> Results</a></li> -->
                 <li class="active"><a href="#tab2"><i class="fas fa-tags"></i> SEO</a></li>
                 <li><a href="#tab3"><i class="fas fa-hashtag"></i> Hashtags</a></li>
-                <!-- <li><a href="#tab4">Tab #4</a></li>  -->
             </ul>
 
-
-
-
+            <!-- default seo tag -->
             <div class="tab-content">
-
-                <!-- <div id="tab1" class="tab active">
-                    <p>Image Results</p>
-                    <div class="row text-center">
-                        <div class="col-md-12">
-                            <div id="buttons"></div>
-                        </div>
-                    </div>
-                </div> -->
-
                 <div id="tab2" class="tab active">
                     <div class="row text-center">
                         <div class="col-md-12">
                             <div class="buttons"></div>
                         </div>
                     </div>
-                    
+
+                    <!-- copy items to clipboard -->
                     <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i>
                         Copy</button>
                     <div class="results"></div>
                 </div>
 
+                <!-- hashtag tab -->
                 <div id="tab3" class="tab">
                     <div class="row text-center">
                         <div class="col-md-12">
@@ -111,39 +93,25 @@
                     <div class="hashTag-results"></div>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </div>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+    <!-- bootstrap js -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
-
-
-
-
-
-
-
-
-
-
+    <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
+    <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"
         integrity="sha256-XmdRbTre/3RulhYk/cOBUMpYlaAp2Rpo/s556u0OIKk=" crossorigin="anonymous"></script>
+    <!-- jquery js -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- app -->
     <script src="./assets/js/main.js"></script>
 </body>
 
