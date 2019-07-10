@@ -2,12 +2,10 @@ Image SEO/Hashtag Generator
 
 
 Description:
-
 Google Vision API analyzes images then generates SEO's and Hashtags.
 
 
 API's to be used:
-
 Google Vision
 
 Webster-Thesaurus
@@ -16,7 +14,6 @@ Words
 
 
 Task BreakDown:
-
 Upload image and convert to base64.
 
 Base64 image passed into Google Vision API.
@@ -34,7 +31,6 @@ User implements application results on social media.
 
 
 Contributors (Main Contribution(s)):
-
 Alex Hwong (Persistance/Problem Solving/Debugging)
 
 Eric Mackensen (Words API)
