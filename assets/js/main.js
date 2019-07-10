@@ -110,13 +110,18 @@ $(document.body).on("click", ".newButton", function () {
 
 
         let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0]
-
+//hashtag function 
 
 
 
         synonymArray.forEach(function (element) {
+            let result = element.wd; 
+            let addHash = '#'
+            let hashTag = addHash.concat(result)
+            console.log(hashTag)
             console.log(element.wd)
-            $('.results').append('<div> ').append(element.wd)
+            $('.results').append(`<div> ${result}`)
+            $('.hashTag-results').append(`<div> ${hashTag}`)
         });
     });
 
