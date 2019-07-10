@@ -20,11 +20,11 @@ User implements application results on social media.
 Project Management: https://trello.com/b/18invRsg/underpar-project
 
 Contributors (Main Contribution(s)): 
-  Alex Hwong (Persistance/Problem Solving/Debugging)
-  Eric Mackensen (Words API)
-  Ryan Hazzard (Vision API)
-  Vincent Nguyen (API research & Implimentation)
-  Zac Morton (UX/UI/Design)
+Alex Hwong (Persistance/Problem Solving/Debugging)
+Eric Mackensen (Words API)
+Ryan Hazzard (Vision API)
+Vincent Nguyen (API research & Implimentation)
+Zac Morton (UX/UI/Design)
 
 
 
