@@ -1,6 +1,6 @@
 Image SEO/Hashtag Generator
 
-Description: 
+Description:
 Google Vision API analyzes images then generates SEO's and Hashtags.
 
 API's to be used: 
