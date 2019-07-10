@@ -121,7 +121,11 @@ $(document.body).on("click", ".newButton", function() {
   // search term
   var searchQuery = $(this).attr("value");
 
-  console.log(searchQuery);
+  searchQuery = searchQuery.trim().toLowerCase().split(' ').join('+')
+
+  console.log(searchQuery)
+
+
 
   // key to api
   var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
