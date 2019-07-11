@@ -91,6 +91,7 @@ function encodeImageFileAsURL(element) {
 
         // get web entities and create new buttons for each web entity
         let webArray = response.data.responses[0].webDetection.webEntities;
+
         console.log(webArray);
         webArray.forEach(function(element) {
           console.log(element);
