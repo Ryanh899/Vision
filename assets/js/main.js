@@ -126,7 +126,11 @@ $(document.body).on("click", ".newButton", function () {
     // search term
     var searchQuery = $(this).attr("value");
 
+    // Trimmed searchquery
     searchQuery = searchQuery.trim().toLowerCase().split(' ').join('+')
+
+    // Replace non-alphanumeric characters in searchquery with spaces
+    var searchQueryReplace = searchQuery.replace(/[\W_]+/g,' ')
 
     console.log(searchQuery)
 
@@ -134,7 +138,7 @@ $(document.body).on("click", ".newButton", function () {
     var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
 
     // search term with apikey
-    var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+    var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQueryReplace}?key=${apiKey}`;
 
     // url, no apikey needed
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
@@ -163,34 +167,35 @@ $(document.body).on("click", ".newButton", function () {
 
         console.log(response);
 
-        // Error Checking for undefined console errors/empty arrays
+        // Error Checking for undefined console errors/empty arrays, if error, push value only to arrays
         if (!Array.isArray(response) || !response.length) {
-            let result = searchQuery;
+            let result = searchQueryReplace.replace(/[\W_]+/g,' ')
             let addHash = '#'
             let hashTag = addHash.concat(result)
             console.log(hashTag)
-            console.log(searchQuery)
+            console.log(result)
             $('.results').append(`<div> ${result}`)
             $('.hashTag-results').append(`<div> ${hashTag}`)
         } else if (!response[0].def) {
-            let result = searchQuery;
+            let result = searchQueryReplace.replace(/[\W_]+/g,' ')
             let addHash = '#'
             let hashTag = addHash.concat(result)
             console.log(hashTag)
-            console.log(searchQuery)
+            console.log(result)
             $('.results').append(`<div> ${result}`)
             $('.hashTag-results').append(`<div> ${hashTag}`)
         } else {
 
-            // webster's synonym's response
+            // webster's synonym's response + searchQueryreplace
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
+            synonymArray.unshift(searchQueryReplace.replace(/[\W_]+/g,' '))
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
             synonymArray.forEach(function (element) {
-                var result = element.wd;
-                let addHash = "#";
-                var hashTag = addHash.concat(result);
-                console.log(`synonym: ${element.wd}`);
+                var result = element.wd
+                let addHash = "#"
+                var hashTag = addHash.concat(result)
+                console.log(`synonym: ${element.wd}`)
 
                 hashTag = hashTag.split(' ').join()
 
@@ -209,7 +214,7 @@ $(document.body).on("click", ".newButton", function () {
 
     // ajax get method to search words API and get list of synonyms
     $.get({
-        url: `https://wordsapiv1.p.mashape.com/words/${searchQuery}`,
+        url: `https://wordsapiv1.p.mashape.com/words/${searchQueryReplace}`,
         headers: {
             "X-Mashape-Key": "d0365a5fecmsh001a788d875b48cp15f702jsn438745cf2e54",
             Accept: "application/json"
