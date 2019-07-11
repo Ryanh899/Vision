@@ -94,6 +94,7 @@ function encodeImageFileAsURL(element) {
         $(".buttons").empty();
         // get web entities and create new buttons for each web entity
         let webArray = response.data.responses[0].webDetection.webEntities;
+
         console.log(webArray);
         webArray.forEach(function (element) {
           let newButton = `<button class='btn newButton btn-secondary mt-1 mb-1 ml-1 mr-1' value='${
@@ -123,21 +124,47 @@ $(document.body).on("click", ".newButton", function () {
 
   // search term
   var searchQuery = $(this).attr("value");
+<<<<<<< HEAD
+=======
 
   searchQuery = searchQuery.trim().toLowerCase().split(' ').join('+')
 
   console.log(searchQuery)
 
 
+>>>>>>> dab6b050c3678ab6338b6dd387b1b806bbe4103c
 
   // key to api
   var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
 
   // search term with apikey
-  var apiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+  var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
+
+  // url, no apikey needed
+  var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
+
+  console.log(
+    `Searching for: "${searchQuery}" in UrbanDic, Webster, and Words API`
+  );
+
+  // ajax get method to urban dictionary to get definition of searchquery
   $.get({
-    url: apiRoute
-  }).done(function (response) {
+    url: urbanDicApiRoute
+  }).done(function(response) {
+    console.log(`UrbanDic Response: ${response.list[0].definition}`);
+
+    // add definition to DOM
+    $(".definition").text(
+      `What the Internet thinks: ${response.list[0].definition}`
+    );
+  });
+
+  // ajax get method to webster-thesaurus api; search for synonyms and return
+  $.get({
+
+    url: websterApiRoute
+  }).done(function(response) {
+
     console.log(response);
 
     // webster's synonym's response
@@ -189,6 +216,7 @@ $(document.body).on("click", ".newButton", function () {
 
 //push results into SEO array
 $(document.body).on("click", ".seo-pick", function () {
+
   var seoVal = $(this).attr("data-attribute");
   console.log(seoVal);
   if (!seoArr.includes(seoVal)) {
