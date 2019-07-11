@@ -1,3 +1,6 @@
+//main focus- find a
+
+
 //variable for base64 images
 var baseCode;
 
@@ -59,19 +62,19 @@ function newRequest(img) {
   var addedRequest = new addRequests(img);
   requestArr.push(addedRequest);
 }
-
 //gets input file and converts to base64
 function encodeImageFileAsURL(element) {
   var file = element.files[0];
   var reader = new FileReader();
   console.log(reader.result);
-  reader.onloadend = function() {
+  reader.onloadend = function () {
     $("#picDiv").empty();
     baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
     newRequest(baseCode);
     $("#picDiv").append(
-      `<img class="img-thumbnail img-responsive" src="${reader.result}">`
+      `<img class="rounded img-fluid" src="${reader.result}">`
     );
+
 
     // empty buttoms and let user know that vision is searching for results
     $(".buttons").empty();
@@ -81,41 +84,55 @@ function encodeImageFileAsURL(element) {
     console.log(requestArr[n].request);
 
     // axios post method to vision api; pass in the constructed object for post request
+
     axios
       .post(
         "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
         requestArr[n].request
       )
-      .then(function(response) {
+      .then(function (response) {
         $(".buttons").empty();
-
         // get web entities and create new buttons for each web entity
         let webArray = response.data.responses[0].webDetection.webEntities;
 
         console.log(webArray);
-        webArray.forEach(function(element) {
-          console.log(element);
-          let newButton = `<button class='btn newButton btn-primary mt-1 mb-1 ml-1 mr-1' value='${
+        webArray.forEach(function (element) {
+          let newButton = `<button class='btn newButton btn-secondary mt-1 mb-1 ml-1 mr-1' value='${
             element.description
-          }'> ${element.description}`;
+            }'> ${element.description}`;
 
           // taking new buttons made and append to buttons dom
           $(".buttons").append(newButton);
+
+          console.log(element);
         });
       });
     n++;
   };
   reader.readAsDataURL(file);
 }
+//on submit click makes axios call
+
 
 // when one of the web entities is clicked, take button's value and search it in webster api for synonyms
-$(document.body).on("click", ".newButton", function() {
+$(document.body).on("click", ".newButton", function () {
   // empty out results when a web entity is picked
-  $(".results").empty();
-  $(".hashTag-results").empty();
+
+  $(".results").empty()
+
+  $(".hashTag-results").empty()
 
   // search term
   var searchQuery = $(this).attr("value");
+<<<<<<< HEAD
+=======
+
+  searchQuery = searchQuery.trim().toLowerCase().split(' ').join('+')
+
+  console.log(searchQuery)
+
+
+>>>>>>> dab6b050c3678ab6338b6dd387b1b806bbe4103c
 
   // key to api
   var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
@@ -144,25 +161,32 @@ $(document.body).on("click", ".newButton", function() {
 
   // ajax get method to webster-thesaurus api; search for synonyms and return
   $.get({
+
     url: websterApiRoute
   }).done(function(response) {
+
     console.log(response);
 
-    // webster's synonym's response as an array
+    // webster's synonym's response
     let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
 
     // loop through synonym array and create hashtags / seo and append it to the DOM
-    synonymArray.forEach(function(element) {
+    synonymArray.forEach(function (element) {
       var result = element.wd;
       let addHash = "#";
       var hashTag = addHash.concat(result);
       console.log(`synonym: ${element.wd}`);
+    
+      hashTag = hashTag.split(' ').join()
+
+      console.log(hashTag)
+
       //creating buttons to push into hash and seo arrays
       $(".results").append(
-        `<button class="seo-pick btn-danger m-2" data-attribute="${result}"> ${result}`
+        `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
       );
       $(".hashTag-results").append(
-        `<button class="hash-pick btn-danger m-2" data-attribute="${hashTag}"> ${hashTag}`
+        `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
       );
     });
   });
@@ -174,23 +198,25 @@ $(document.body).on("click", ".newButton", function() {
       "X-Mashape-Key": "d0365a5fecmsh001a788d875b48cp15f702jsn438745cf2e54",
       Accept: "application/json"
     }
-  }).done(function(wordApi) {
-    wordApi.results.forEach(function(item) {
+  }).done(function (wordApi) {
+    wordApi.results.forEach(function (item) {
       if (item.synonyms) {
-        item.synonyms.forEach(function(item) {
+        item.synonyms.forEach(function (item) {
           console.log(`***********${item}`);
+          hashTag = item.split(' ').join('')
+          console.log(item)
+          $(".results").append(`<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`);
 
-          // add the synonyms to the dom
-          $(".results").append(`<div> ${item}`);
-          $(".hashTag-results").append(`<div> #${item}`);
+          $(".hashTag-results").append(`<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`);
         });
       }
     });
   });
 });
 
-// checks if user has already selected push results into SEO array
-$(document.body).on("click", ".seo-pick", function() {
+//push results into SEO array
+$(document.body).on("click", ".seo-pick", function () {
+
   var seoVal = $(this).attr("data-attribute");
   console.log(seoVal);
   if (!seoArr.includes(seoVal)) {
@@ -202,7 +228,7 @@ $(document.body).on("click", ".seo-pick", function() {
 });
 
 //push results into hash array
-$(document.body).on("click", ".hash-pick", function() {
+$(document.body).on("click", ".hash-pick", function () {
   var hashVal = $(this).attr("data-attribute");
   console.log(hashVal);
   if (!hashArr.includes(hashVal)) {
@@ -214,8 +240,8 @@ $(document.body).on("click", ".hash-pick", function() {
 });
 
 // Tabs Transition
-jQuery(document).ready(function() {
-  jQuery(".tabs .tab-links a").on("click", function(e) {
+jQuery(document).ready(function () {
+  jQuery(".tabs .tab-links a").on("click", function (e) {
     var currentAttrValue = jQuery(this).attr("href");
 
     // Show/Hide Tabs
@@ -243,3 +269,11 @@ function copyToClipboard(element) {
   document.execCommand("copy");
   $temp.remove();
 }
+
+$('#file-upload').click(function () {
+  // empty out results when new image is uploaded
+
+  $(".results").empty()
+
+  $(".hashTag-results").empty()
+})
