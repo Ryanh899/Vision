@@ -7,8 +7,8 @@ img {
 }
 
 body{
-	background-image: linear-gradient(-45deg, #EF7239, #98B7D7);
-	color: #6C98C6;
+	background-image: linear-gradient(-45deg, #EF7239, #4bbef8);
+	color: #21acf1;
 	font-size: 16px;
 	font-family: 'Raleway', sans-serif;
 }
@@ -21,7 +21,7 @@ body{
 	margin-left: 7%;
 	margin-right: 7%;
 	margin-top: 3%;
-	border: solid #f3f3f3;
+	border: solid #dfdede;
 	border-radius: 5px;
 	padding-top: 2%;
 	padding-bottom: 2%;
@@ -43,12 +43,12 @@ body{
 /*----- Tabs -----*/
 .tabs {
 	/* border-top: solid 5px; */
-	background-image: linear-gradient(-45deg, #6C98C6, #98B7D7);
+	background-image: linear-gradient(-45deg, #4bbef8, rgb(233, 145, 104));
 	padding-top: 3px;
 	display: inline-flex;
 	display: inline-block;
-	border-left: solid #f3f3f3;
-	border-right: solid #f3f3f3;
+	border-left: solid #dfdede;
+	border-right: solid #dfdede;
 }
 
 /*----- Tab Links -----*/
@@ -69,21 +69,21 @@ body{
 	padding:9px 15px;
 	display:inline-block;
 	border-radius:3px 3px 0px 0px;
-	background:#7FB5DA;
+	/* background:#7FB5DA; */
 	font-size:16px;
 	font-weight:600;
-	color:#4c4c4c;
+	color: white;
 	transition:all linear 0.5s;
 }
 
 .tab-links a:hover {
-	background:#a7cce5;
+	background:#7FB5DA;
 	text-decoration:none;
 }
 
 li.active a, li.active a:hover {
-	background:rgb(233, 145, 104);
-	color:#f3f3f3;
+	background: #7FB5DA;
+	color: white;
 }
 
 /*----- Content of Tabs -----*/
@@ -91,9 +91,8 @@ li.active a, li.active a:hover {
 	padding:10px;
 	border-radius:3px;
 	box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-	background: #f3f3f3;
-	border: solid #7FB5DA;
-	color: #6C98C6;
+	background: #dfdede;
+	color: #4bbef8;
 	margin-bottom: 5px;
 }
 
@@ -121,14 +120,14 @@ ul {
     min-width: 500px;
 }
 .photoDisplay{
-	background-color: #f3f3f3;
+	background-color: #dfdede;
 	width: 90%;
 	margin: 2%;
 	
 }
 
 .file-bar{
-    background-color: #f3f3f3;
+    background-color: #dfdede;
     min-height: 300px;
     width:100%;
 	
@@ -146,9 +145,10 @@ ul {
 }
 
 .jumbotron{
-	border-bottom: solid 5px #EF7239;
+	border-bottom: solid 5px rgb(243, 164, 127);
 	padding-top: 2%;
 	padding-bottom: 0;
+	background: #f3f3f3;
 }
 
 .ml15 {
@@ -165,4 +165,12 @@ ul {
 
   #submit-button{
 	  background-color: rgb(233, 145, 104);
+	  color: white;
   }
+
+  #submit-button:hover{
+	background-color: #7FB5DA;
+	color: white;
+}
+
+  
