@@ -149,8 +149,8 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
-        `Searching for: "${searchQuerySpace}" in Webster and Words API`
-        `Searching for: "${searchQuery}" in UrbanDic`
+        `Searching for: "${searchQuerySpace}" in Webster and Words API
+        Searching for: "${searchQuery}" in UrbanDic`
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
