@@ -141,7 +141,7 @@ $(document.body).on("click", ".newButton", function () {
     // new vars for searchQuery with only alphanumeric, with spaces instead and deletion
     var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
 
-    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '')
+    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '').toLowerCase()
 
     // key to api
     var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
@@ -206,7 +206,7 @@ $(document.body).on("click", ".newButton", function () {
 
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
-            synonymArray.unshift(searchQueryTrim)
+            synonymArray.unshift({wd: searchQueryTrim})
 
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
