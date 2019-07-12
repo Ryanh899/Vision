@@ -255,7 +255,7 @@ $(document.body).on("click", ".newButton", function () {
                     // let users know that a web entity is clicked
                     $("#message").empty();
                     $("#message").text(
-                        `Search complete! More relevant terms below for "${searchQuery}"!`
+                        `"${searchQuery}" clicked!`
                     );
                 });
             }
@@ -273,15 +273,14 @@ $(document.body).on("click", ".seo-pick", function () {
         console.log(seoArr);
         // let users know that an seo search is complete
         $("#message").empty();
-        $("#message").text(`See below for more results from "${seoVal}"!`);
+        $("#message").text(`"${seoVal}" clicked!`);
     } else {
         console.log("already exists");
 
         // let users know that an seo search already exists
         $("#message").empty();
         $("#message").text(
-            `"${seoVal}" has already been searched! 
-      Please choose another term!`
+            `"${seoVal}" has already been searched!`
         );
     }
 });
@@ -297,14 +296,14 @@ $(document.body).on("click", ".hash-pick", function () {
         // let users know that a hash search is complete
         $("#message").empty();
         $("#message").text(
-            `"${hashVal}" has already been searched! Please choose another term!`
+            `"${hashVal}" clicked!`
         );
     } else {
         console.log("already exists");
         // let users know that an hash search already exists
         $("#message").empty();
         $("#message").text(
-            `"${hashVal}" has already been searched! Please choose another term!`
+            `"${hashVal}" has already been searched!`
         );
     }
 });
@@ -342,7 +341,7 @@ function copyToClipboard(element) {
     // let users know that items are copied to the clipboard
     $("#message").empty();
     $("#message").text(
-        "Copied selected terms to clipboard! Now go change the world!"
+        "Copied to clipboard!"
     );
 }
 
