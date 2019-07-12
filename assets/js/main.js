@@ -77,7 +77,7 @@ function encodeImageFileAsURL(element) {
         $(".buttons").empty();
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
-        var file = $("#file-upload").val();
+        var file = $('#upload-photo').val();
         console.log(file.substr(12));
         console.log(requestArr[n].request);
 
@@ -131,7 +131,9 @@ $(document.body).on("click", ".newButton", function () {
 
     // new vars for searchQuery with only alphanumeric, with spaces instead and deletion
     var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
-    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '').toLowerCase()
+
+    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '')
+
 
     // let users know that a web entity is clicked
     $("#message").empty();
@@ -149,8 +151,9 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
-        `Searching for: "${searchQuerySpace}" in Webster and Words API
-        Searching for: "${searchQuery}" in UrbanDic`
+
+        `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
+
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
@@ -161,7 +164,7 @@ $(document.body).on("click", ".newButton", function () {
 
         // add definition to DOM
         $(".definition").text(
-            `What the Internet thinks: ${response.list[0].definition}`
+            `Definition: ${response.list[0].definition}`
         );
     });
 
@@ -202,11 +205,8 @@ $(document.body).on("click", ".newButton", function () {
 
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
-            synonymArray.unshift({
-                wd: searchQueryTrim
-            })
+            synonymArray.unshift(searchQueryTrim)
 
-            console.log(synonymArray)
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
             synonymArray.forEach(function (element) {
@@ -214,9 +214,7 @@ $(document.body).on("click", ".newButton", function () {
                 let addHash = "#";
                 var hashTag = addHash.concat(result);
                 console.log(`synonym: ${element.wd}`);
-
                 hashTag = hashTag.split(" ").join();
-
                 console.log(hashTag);
 
                 //creating buttons to push into hash and seo arrays
@@ -244,10 +242,11 @@ $(document.body).on("click", ".newButton", function () {
                     console.log(`***********${item}`);
                     hashTag = item.split(" ").join("");
                     console.log(item);
+
+                    // put results of term on the DOM
                     $(".results").append(
                         `<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`
                     );
-
                     $(".hashTag-results").append(
                         `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
                     );
@@ -298,6 +297,7 @@ $(document.body).on("click", ".hash-pick", function () {
     if (!hashArr.includes(hashVal)) {
         hashArr.push(hashVal);
         console.log(hashArr);
+
         // let users know that a hash search is complete
         $("#message").empty();
         $("#message").text(

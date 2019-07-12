@@ -11,10 +11,9 @@ body{
 	color: #21acf1;
 	font-size: 16px;
 	font-family: 'Raleway', sans-serif;
+	background-position: no-repeat;
+    background-size: cover;
 }
-
-
-
 
 .contentMain{
 	width:86%;
@@ -130,18 +129,11 @@ ul {
     background-color: #dfdede;
     min-height: 300px;
     width:100%;
-	
-
-}
-
-.file-upload{
-	text-align: left;  
 }
 
 .mainWidth{
 	width: 100%;
 	margin: 0;
-	
 }
 
 .jumbotron{
@@ -174,3 +166,25 @@ ul {
 }
 
   
+/* #upload {
+	position: relative;
+	overflow: hidden;
+  }
+  #upload-btn {
+	position: absolute;
+	font-size: 50px;
+	opacity: 0;
+	right: 0;
+	top: 0;
+  } */
+
+  #upload {
+	cursor: pointer;
+	/* Style as you please, it will become the visible UI component. */
+ }
+ 
+ #upload-photo {
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+ }
