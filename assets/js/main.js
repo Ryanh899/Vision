@@ -78,6 +78,11 @@ function encodeImageFileAsURL(element) {
 
         // empty buttoms and let user know that vision is searching for results
         $(".buttons").empty();
+        $('.definition').empty()
+        $('.results').empty()
+        $('.hashTag-results').empty()
+
+
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
         $('#spinner').show();
