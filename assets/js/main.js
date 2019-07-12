@@ -281,7 +281,11 @@ $(document.body).on("click", ".seo-pick", function () {
         $("#message").text(`See below for more results from "${seoVal}"!`);
     } else {
         console.log("already exists");
-
+        var remove = $(this).attr('data-attribute')
+        console.log(remove)
+        //remove 
+        seoArr.filter(remove)
+        console.log(seoArr)
         // let users know that an seo search already exists
         $("#message").empty();
         $("#message").text(
