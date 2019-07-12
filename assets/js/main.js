@@ -81,9 +81,9 @@ function encodeImageFileAsURL(element) {
         $('.definition').empty()
         $('.results').empty()
         $('.hashTag-results').empty()
-        $('#submit-button').hide()
-
         $("#message").empty();
+
+        $('#submit-button').hide()
         $("#message").text("Image has been uploaded! Searching for results...");
         $('#spinner').show();
 
@@ -184,6 +184,7 @@ $(document.body).on("click", ".newButton", function () {
         console.log(response);
 
         // Error Checking for non-responses from Webster
+        // 
         if (!Array.isArray(response) || !response.length) {
             let result = searchQueryTrim;
             let addHash = '#'
@@ -192,10 +193,10 @@ $(document.body).on("click", ".newButton", function () {
             console.log(result)
             //creating buttons to push into hash and seo arrays
             $(".results").append(
-                `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
+                `<button class="seo-pick btn-light btn rounded m-2" data-attribute="${result}"> ${result}`
             );
             $(".hashTag-results").append(
-                `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
+                `<button class="hash-pick btn-light btn rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
             );
         } else if (!response[0].def) {
             let result = searchQueryTrim;
@@ -205,10 +206,10 @@ $(document.body).on("click", ".newButton", function () {
             console.log(result)
             //creating buttons to push into hash and seo arrays
             $(".results").append(
-                `<button class="se o-pick btn-light ro unded m-2" data-attribute="${result}"> ${result}`
+                `<button class="se o-pick btn btn-light rounded m-2" data-attribute="${result}"> ${result}`
             );
             $(".hashTag-results").append(
-                `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
+                `<button class="hash-pick btn btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
             );
         } else {
 
@@ -227,8 +228,8 @@ $(document.body).on("click", ".newButton", function () {
                 console.log(hashTag);
 
                 //creating buttons to push into hash and seo arrays
-                $(".results").append(`<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`);
-                     $(".hashTag-results").append(`<button class="hash-pick btn-light rounded m-2"   data-attribute="${hashTag}"> ${hashTag}`);
+                $(".results").append(`<button class="seo-pick btn btn-light rounded m-2" data-attribute="${result}"> ${result}`);
+                     $(".hashTag-results").append(`<button class="hash-pick btn btn-light rounded m-2"   data-attribute="${hashTag}"> ${hashTag}`);
             });
         }
     });
@@ -250,10 +251,10 @@ $(document.body).on("click", ".newButton", function () {
 
                     // put results of term on the DOM
                     $(".results").append(
-                        `<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`
+                        `<button class="seo-pick btn btn-light rounded m-2" data-attribute="${item}"> ${item}`
                     );
                     $(".hashTag-results").append(
-                        `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
+                        `<button class="hash-pick btn btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
                     );
 
                     // let users know that a web entity is clicked
@@ -364,6 +365,7 @@ $("#file-upload").click(function () {
     $("#message").empty();
 });
 
+// remove term from array
 function arrayRemove(arr, value) {
 
    return arr.filter(function(ele){
