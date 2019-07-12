@@ -22,19 +22,20 @@
     <div class="jumbotron jumbotron-fluid mainWidth header-font">
         <div class="container">
             <div class="row">
-                <h1 class="display-4 text-center"></i>SEO and Hashtag Generator</h1>
+                <h1 class="display-4 text-center"></i>Vision</h1>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="row file-bar mainWidth">
+        <div class="row mt-5 file-bar mainWidth">
             <div class="row mainWidth">
                 <div class="col-md-6 photoDisplay">
                     <div class="row buttonDiv">
 
                         <!-- upload photo input -->
-                        <label id="upload" for="upload-photo">Upload an image to start analysis!</label>
+                        <label id="upload" class="message-font-header" for="upload-photo">Upload an image to start
+                            analysis!</label>
                         <input type="file" name="photo" id="upload-photo" onchange="encodeImageFileAsURL(this)" />
                     </div>
                 </div>
@@ -42,8 +43,6 @@
                 <!-- photo section -->
                 <div class="container mainWidth">
                     <div id="picDiv" class="mb-2 row"></div>
-                    <!-- user context -->
-                    <div id="message" class="mb-2 row"></div>
                 </div>
                 <div class="row mainWidth"></div>
             </div>
@@ -54,6 +53,12 @@
             <ul class="tab-links mt-3">
                 <li class="active"><a href="#tab2"><i class="fas fa-tags"></i> SEO</a></li>
                 <li><a href="#tab3"><i class="fas fa-hashtag"></i> Hashtags</a></li>
+                <li id="spinner" class="spinner-border text-light ml-3" role="status">
+                    <span class="sr-only">Loading...</span>
+                </li>
+                <!-- user context -->
+                <li id="message" class="message-font mt-2"></li>
+
             </ul>
 
             <!-- content -->
@@ -66,30 +71,33 @@
 
                             <!-- buttons -->
                             <div class="buttons"></div>
-
-                            <!-- definition -->
-                            <div class="definition"></div>
                         </div>
                     </div>
 
                     <!-- copy items to clipboard -->
-                    <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i>
+                    <button id="submit-button" class="m-2" onclick="copyToClipboard('.results')"><i
+                            class="far fa-copy"></i>
                         Copy</button>
 
                     <!-- synonyms -->
-                    <div class="results"></div>
+                    <div class="results m-2"></div>
+
+                    <!-- definition -->
+                    <div class="definition m-2"></div>
                 </div>
 
                 <!-- hashtag tab -->
                 <div id="tab3" class="tab">
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <div class="definition"></div>
                             <div class="buttons"></div>
                         </div>
                     </div>
-                    <p>Grab a Hashtag</p>
-                    <div class="hashTag-results"></div>
+
+                    <p class="m-2" style="color:black">Grab a Hashtag</p>
+                    <div class="hashTag-results m-2"></div>
+                    <div class="definition m-2"></div>
+
                 </div>
             </div>
         </div>
