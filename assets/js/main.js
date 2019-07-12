@@ -1,4 +1,5 @@
 $('#spinner').hide();
+$('#submit-button').hide()
 
 //variable for base64 images
 var baseCode;
@@ -78,6 +79,11 @@ function encodeImageFileAsURL(element) {
 
         // empty buttoms and let user know that vision is searching for results
         $(".buttons").empty();
+        $('.definition').empty()
+        $('.results').empty()
+        $('.hashTag-results').empty()
+        $('#submit-button').hide()
+
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
         $('#spinner').show();
@@ -94,6 +100,9 @@ function encodeImageFileAsURL(element) {
             )
             .then(function (response) {
                 $(".buttons").empty();
+
+                // Show copy button
+                $('#submit-button').show()
 
                 // get web entities and create new buttons for each web entity
                 let webArray = response.data.responses[0].webDetection.webEntities;
