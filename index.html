@@ -19,36 +19,23 @@
 
 <body>
     <!-- header -->
-    <div class="jumbotron jumbotron-fluid mainWidth">
+    <div class="jumbotron jumbotron-fluid mainWidth header-font">
         <div class="container">
             <div class="row">
-                <h1 class="display-4"></i>SEO and Hashtag Generator</h1>
-            </div>
-            <div class="row">
-                <p class="lead">Upload a photo!</p>
+                <h1 class="display-4 text-center"></i>SEO and Hashtag Generator</h1>
             </div>
         </div>
     </div>
 
-    <div class="container contentMain">
+    <div class="container">
         <div class="row file-bar mainWidth">
             <div class="row mainWidth">
                 <div class="col-md-6 photoDisplay">
-                    <div class="row mainWidth picDiv">
-                        <div class="row buttonDiv">
+                    <div class="row buttonDiv">
 
-                            <!-- upload photo -->
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="file-upload"
-                                        aria-describedby="inputGroupFileAddon01" onchange="encodeImageFileAsURL(this)">
-                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- upload photo input -->
+                        <label id="upload" for="upload-photo">Upload an image to start analysis!</label>
+                        <input type="file" name="photo" id="upload-photo" onchange="encodeImageFileAsURL(this)" />
                     </div>
                 </div>
 
@@ -56,7 +43,7 @@
                 <div class="container mainWidth">
                     <div id="picDiv" class="mb-2 row"></div>
                     <!-- user context -->
-                    <div id="message" class="mb-2 row">Upload an image to start analysis</div>
+                    <div id="message" class="mb-2 row"></div>
                 </div>
                 <div class="row mainWidth"></div>
             </div>
@@ -110,11 +97,11 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- bootstrap js -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+        </script>
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
     <!-- axios -->
