@@ -192,3 +192,14 @@ ul {
 .definition {
 	color: black;
 }
+
+.clicked-seo {
+	background-color: #EF7239; 
+	opacity: 50%;
+	color: white; 
+}
+.clicked-hash {
+	background-color: #EF7239; 
+	opacity: 50%;
+	color: white; 
+}
