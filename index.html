@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Vision</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -48,21 +48,18 @@
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-                <!-- uploaded photo -->
+
+                <!-- photo section -->
                 <div class="container mainWidth">
                     <div id="picDiv" class="mb-2 row"></div>
+                    <!-- user context -->
+                    <div id="message" class="mb-2 row">Upload an image to start analysis</div>
                 </div>
-                <div class="row mainWidth">
-
-                </div>
-
+                <div class="row mainWidth"></div>
             </div>
-
         </div>
 
         <!-- converter tab -->
@@ -72,17 +69,11 @@
                 <li><a href="#tab3"><i class="fas fa-hashtag"></i> Hashtags</a></li>
             </ul>
 
-            <!-- default seo tag -->
+            <!-- content -->
             <div class="tab-content">
 
                 <!-- default seo tag -->
                 <div id="tab2" class="tab active">
-
-                    <!-- copy items to clipboard -->
-                    <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i>
-                        Copy</button>
-
-
                     <div class="row text-center">
                         <div class="col-md-12">
 
@@ -94,55 +85,45 @@
                         </div>
                     </div>
 
+                    <!-- copy items to clipboard -->
+                    <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i>
+                        Copy</button>
+
+                    <!-- synonyms -->
+                    <div class="results"></div>
+                </div>
+
+                <!-- hashtag tab -->
+                <div id="tab3" class="tab">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <div class="definition"></div>
+                            <div class="buttons"></div>
+                        </div>
+                    </div>
+                    <p>Grab a Hashtag</p>
+                    <div class="hashTag-results"></div>
                 </div>
             </div>
-
-            <div class="results mt-2 text-center"></div>
-
-        </div>
-
-        <!-- hashtag tab -->
-        <div id="tab3" class="tab">
-
-            <button id="submit-button" onclick="copyToClipboard('.results')"><i class="far fa-copy"></i>
-                Copy</button>
-
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <div class="definition"></div>
-                    <div class="buttons"></div>
-                </div>
-            </div>
-
-            <div class="hashTag-results mt-2 text-center"></div>
         </div>
     </div>
-    </div>
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/client.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
     <!-- bootstrap js -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <!-- firebase -->
     <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
-
     <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"
         integrity="sha256-XmdRbTre/3RulhYk/cOBUMpYlaAp2Rpo/s556u0OIKk=" crossorigin="anonymous"></script>
-
     <!-- jquery js -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-    <!-- javascript -->
+    <!-- app -->
     <script src="./assets/js/main.js"></script>
 </body>
 

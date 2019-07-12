@@ -1,6 +1,3 @@
-//main focus- find a
-
-
 //variable for base64 images
 var baseCode;
 
@@ -18,283 +15,299 @@ var seoArr = [];
 
 //constructor for new request object to be passed into google vision
 function addRequests(picData) {
-    this.request = {};
-    this.request.requests = [{}];
-    this.request.requests[0].image = {
-        content: picData
-    };
-    this.request.requests[0].features = [{
-            type: "LABEL_DETECTION",
-            maxResults: 1
-        },
-        {
-            type: "FACE_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "OBJECT_LOCALIZATION",
-            maxResults: 10
-        },
-        {
-            type: "DOCUMENT_TEXT_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "LANDMARK_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "WEB_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "SAFE_SEARCH_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "IMAGE_PROPERTIES",
-            maxResults: 10
-        }
-    ];
+  this.request = {};
+  this.request.requests = [{}];
+  this.request.requests[0].image = { content: picData };
+  this.request.requests[0].features = [
+    {
+      type: "LABEL_DETECTION",
+      maxResults: 1
+    },
+    {
+      type: "FACE_DETECTION",
+      maxResults: 10
+    },
+    {
+      type: "OBJECT_LOCALIZATION",
+      maxResults: 10
+    },
+    {
+      type: "DOCUMENT_TEXT_DETECTION",
+      maxResults: 10
+    },
+    {
+      type: "LANDMARK_DETECTION",
+      maxResults: 10
+    },
+    {
+      type: "WEB_DETECTION",
+      maxResults: 10
+    },
+    {
+      type: "SAFE_SEARCH_DETECTION",
+      maxResults: 10
+    },
+    {
+      type: "IMAGE_PROPERTIES",
+      maxResults: 10
+    }
+  ];
 }
 
 //pushes new requests to arr/ creates new request objs
 function newRequest(img) {
-    var addedRequest = new addRequests(img);
-    requestArr.push(addedRequest);
+  var addedRequest = new addRequests(img);
+  requestArr.push(addedRequest);
 }
 //gets input file and converts to base64
 function encodeImageFileAsURL(element) {
-    var file = element.files[0];
-    var reader = new FileReader();
-    console.log(reader.result);
-    reader.onloadend = function () {
-        $("#picDiv").empty();
-        baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
-        newRequest(baseCode);
-        $("#picDiv").append(
-            `<img class="rounded img-fluid" src="${reader.result}">`
-        );
+  var file = element.files[0];
+  var reader = new FileReader();
+  console.log(reader.result);
+  reader.onloadend = function() {
+    $("#picDiv").empty();
+    baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
+    newRequest(baseCode);
+    $("#picDiv").append(
+      `<img class="rounded img-fluid" src="${reader.result}">`
+    );
 
-        // empty buttoms and let user know that vision is searching for results
+    // empty buttoms and let user know that vision is searching for results
+    $(".buttons").empty();
+    $("#message").empty();
+    $("#message").text("Image has been uploaded! Searching for results...");
+    var file = $("#file-upload").val();
+    console.log(file.substr(12));
+    console.log(requestArr[n].request);
+
+    // axios post method to vision api; pass in the constructed object for post request
+    axios
+      .post(
+        "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
+        requestArr[n].request
+      )
+      .then(function(response) {
         $(".buttons").empty();
-        $(".buttons").text("Searching for results");
-        var file = $("#file-upload").val();
-        console.log(file.substr(12));
-        console.log(requestArr[n].request);
+        // get web entities and create new buttons for each web entity
+        let webArray = response.data.responses[0].webDetection.webEntities;
 
-        // axios post method to vision api; pass in the constructed object for post request
+        console.log(webArray);
+        webArray.forEach(function(element) {
+          let newButton = `<button class='btn newButton btn-secondary mt-1 mb-1 ml-1 mr-1' value='${
+            element.description
+          }'> ${element.description}`;
 
-        axios
-            .post(
-                "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
-                requestArr[n].request
-            )
-            .then(function (response) {
-                $(".buttons").empty();
-                // get web entities and create new buttons for each web entity
-                let webArray = response.data.responses[0].webDetection.webEntities;
+          // taking new buttons made and append to buttons dom
+          $(".buttons").append(newButton);
 
-                console.log(webArray);
-                webArray.forEach(function (element) {
-
-                    if (element.description) {
-
-                        let newButton = `<button class='btn newButton btn-secondary mt-1 mb-1 ml-1 mr-1' value='${element.description}'> ${element.description}`;
-
-                        // taking new buttons made and append to buttons dom
-                        $(".buttons").append(newButton);
-
-                        console.log(element);
-                    }
-                });
-            });
-        n++;
-    };
-    reader.readAsDataURL(file);
+          // let users know that the search is complete
+          $("#message").empty();
+          $("#message").text(
+            "Search complete! Click on a button to dive deeper!"
+          );
+          console.log(element);
+        });
+      });
+    n++;
+  };
+  reader.readAsDataURL(file);
 }
 //on submit click makes axios call
 
-
 // when one of the web entities is clicked, take button's value and search it in webster api for synonyms
-$(document.body).on("click", ".newButton", function () {
-    // empty out results when a web entity is picked
-    $(".results").empty()
+$(document.body).on("click", ".newButton", function() {
+  // empty out results when a web entity is picked
 
-    $(".hashTag-results").empty()
+  $(".results").empty();
+  $(".hashTag-results").empty();
 
-    // search term
-    var searchQuery = $(this).attr("value");
+  // search term
+  var searchQuery = $(this).attr("value");
 
-    // Trimmed searchquery
-    searchQuery = searchQuery.trim().toLowerCase().split(' ').join('+')
+  // let users know that a web entity is clicked
+  $("#message").empty();
+  $("#message").text(
+    `"${searchQuery}" has been clicked! Searching for more relevant terms!`
+  );
 
-    // Replace non-alphanumeric characters in searchquery with spaces
-    var searchQueryReplace = searchQuery.replace(/[\W_]+/g,' ')
+  // key to api
+  var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
 
-    console.log(searchQuery)
+  // search term with apikey
+  var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuery}?key=${apiKey}`;
 
-    // key to api
-    var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
+  // url, no apikey needed
+  var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
-    // search term with apikey
-    var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQueryReplace}?key=${apiKey}`;
+  console.log(
+    `Searching for: "${searchQuery}" in UrbanDic, Webster, and Words API`
+  );
 
-    // url, no apikey needed
-    var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
+  // ajax get method to urban dictionary to get definition of searchquery
+  $.get({
+    url: urbanDicApiRoute
+  }).done(function(response) {
+    console.log(`UrbanDic Response: ${response.list[0].definition}`);
 
-    console.log(
-        `Searching for: "${searchQuery}" in UrbanDic, Webster, and Words API`
+    // add definition to DOM
+    $(".definition").text(
+      `What the Internet thinks: ${response.list[0].definition}`
     );
+  });
 
-    // ajax get method to urban dictionary to get definition of searchquery
-    $.get({
-        url: urbanDicApiRoute
-    }).done(function (response) {
-        console.log(`UrbanDic Response: ${response.list[0].definition}`);
+  // ajax get method to webster-thesaurus api; search for synonyms and return
+  $.get({
+    url: websterApiRoute
+  }).done(function(response) {
+    console.log(response);
 
-        // add definition to DOM
-        $(".definition").text(
-            `What the Internet thinks: ${response.list[0].definition}`
-        );
+    // webster's synonym's response
+    let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
+
+    // loop through synonym array and create hashtags / seo and append it to the DOM
+    synonymArray.forEach(function(element) {
+      var result = element.wd;
+      let addHash = "#";
+      var hashTag = addHash.concat(result);
+      console.log(`synonym: ${element.wd}`);
+
+      hashTag = hashTag.split(" ").join();
+
+      console.log(hashTag);
+
+      //creating buttons to push into hash and seo arrays
+      $(".results").append(
+        `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
+      );
+      $(".hashTag-results").append(
+        `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
+      );
     });
+  });
 
-    // ajax get method to webster-thesaurus api; search for synonyms and return
-    $.get({
+  // ajax get method to search words API and get list of synonyms
+  $.get({
+    url: `https://wordsapiv1.p.mashape.com/words/${searchQuery}`,
+    headers: {
+      "X-Mashape-Key": "d0365a5fecmsh001a788d875b48cp15f702jsn438745cf2e54",
+      Accept: "application/json"
+    }
+  }).done(function(wordApi) {
+    wordApi.results.forEach(function(item) {
+      if (item.synonyms) {
+        item.synonyms.forEach(function(item) {
+          console.log(`***********${item}`);
+          hashTag = item.split(" ").join("");
+          console.log(item);
+          $(".results").append(
+            `<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`
+          );
 
-        url: websterApiRoute
-    }).done(function (response) {
+          $(".hashTag-results").append(
+            `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
+          );
 
-        console.log(response);
-
-        // Error Checking for undefined console errors/empty arrays, if error, push value only to arrays
-        if (!Array.isArray(response) || !response.length) {
-            let result = searchQueryReplace.replace(/[\W_]+/g,' ')
-            let addHash = '#'
-            let hashTag = addHash.concat(result)
-            console.log(hashTag)
-            console.log(result)
-            $('.results').append(`<div> ${result}`)
-            $('.hashTag-results').append(`<div> ${hashTag}`)
-        } else if (!response[0].def) {
-            let result = searchQueryReplace.replace(/[\W_]+/g,' ')
-            let addHash = '#'
-            let hashTag = addHash.concat(result)
-            console.log(hashTag)
-            console.log(result)
-            $('.results').append(`<div> ${result}`)
-            $('.hashTag-results').append(`<div> ${hashTag}`)
-        } else {
-
-            // webster's synonym's response + searchQueryreplace
-            let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
-            synonymArray.unshift(searchQueryReplace.replace(/[\W_]+/g,' '))
-
-            // loop through synonym array and create hashtags / seo and append it to the DOM
-            synonymArray.forEach(function (element) {
-                var result = element.wd
-                let addHash = "#"
-                var hashTag = addHash.concat(result)
-                console.log(`synonym: ${element.wd}`)
-
-                hashTag = hashTag.split(' ').join()
-
-                console.log(hashTag)
-
-                //creating buttons to push into hash and seo arrays
-                $(".results").append(
-                    `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
-                );
-                $(".hashTag-results").append(
-                    `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
-                );
-            });
-        }
-    });
-
-    // ajax get method to search words API and get list of synonyms
-    $.get({
-        url: `https://wordsapiv1.p.mashape.com/words/${searchQueryReplace}`,
-        headers: {
-            "X-Mashape-Key": "d0365a5fecmsh001a788d875b48cp15f702jsn438745cf2e54",
-            Accept: "application/json"
-        }
-    }).done(function (wordApi) {
-        wordApi.results.forEach(function (item) {
-            if (item.synonyms) {
-                item.synonyms.forEach(function (item) {
-                    console.log(`***********${item}`);
-                    hashTag = item.split(' ').join('')
-                    console.log(item)
-                    $(".results").append(`<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`);
-
-                    $(".hashTag-results").append(`<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`);
-                });
-            }
+          // let users know that a web entity is clicked
+          $("#message").empty();
+          $("#message").text(
+            `Search complete! Check out the more relevant terms below for "${searchQuery}"!`
+          );
         });
+      }
     });
+  });
 });
 
 //push results into SEO array
-$(document.body).on("click", ".seo-pick", function () {
+$(document.body).on("click", ".seo-pick", function() {
+  var seoVal = $(this).attr("data-attribute");
 
-    var seoVal = $(this).attr("data-attribute");
-    console.log(seoVal);
-    if (!seoArr.includes(seoVal)) {
-        seoArr.push(seoVal);
-        console.log(seoArr);
-    } else {
-        console.log("already exists");
-    }
+  // let users know that an seo button is clicked
+  $("#message").empty();
+  $("#message").text(
+    `"${seoVal}" has been clicked! Searching for more relevant terms!`
+  );
+  console.log(seoVal);
+  if (!seoArr.includes(seoVal)) {
+    seoArr.push(seoVal);
+    console.log(seoArr);
+    // let users know that an seo search is complete
+    $("#message").empty();
+    $("#message").text(`See below for more results from "${seoVal}"!`);
+  } else {
+    console.log("already exists");
+
+    // let users know that an seo search already exists
+    $("#message").empty();
+    $("#message").text(
+      `"${seoVal}" has already been searched! 
+      Please choose another term!`
+    );
+  }
 });
 
 //push results into hash array
-$(document.body).on("click", ".hash-pick", function () {
-    var hashVal = $(this).attr("data-attribute");
-    console.log(hashVal);
-    if (!hashArr.includes(hashVal)) {
-        hashArr.push(hashVal);
-        console.log(hashArr);
-    } else {
-        console.log("already exists");
-    }
+$(document.body).on("click", ".hash-pick", function() {
+  var hashVal = $(this).attr("data-attribute");
+  console.log(hashVal);
+  if (!hashArr.includes(hashVal)) {
+    hashArr.push(hashVal);
+    console.log(hashArr);
+    // let users know that a hash search is complete
+    $("#message").empty();
+    $("#message").text(
+      `"${hashVal}" has already been searched! Please choose another term!`
+    );
+  } else {
+    console.log("already exists");
+    // let users know that an hash search already exists
+    $("#message").empty();
+    $("#message").text(
+      `"${hashVal}" has already been searched! Please choose another term!`
+    );
+  }
 });
 
 // Tabs Transition
-jQuery(document).ready(function () {
-    jQuery(".tabs .tab-links a").on("click", function (e) {
-        var currentAttrValue = jQuery(this).attr("href");
+jQuery(document).ready(function() {
+  jQuery(".tabs .tab-links a").on("click", function(e) {
+    var currentAttrValue = jQuery(this).attr("href");
 
-        // Show/Hide Tabs
-        jQuery(".tabs " + currentAttrValue)
-            .fadeIn(1000)
-            .siblings()
-            .hide();
+    // Show/Hide Tabs
+    jQuery(".tabs " + currentAttrValue)
+      .fadeIn(1000)
+      .siblings()
+      .hide();
 
-        // Change/remove current tab to active
-        jQuery(this)
-            .parent("li")
-            .addClass("active")
-            .siblings()
-            .removeClass("active");
+    // Change/remove current tab to active
+    jQuery(this)
+      .parent("li")
+      .addClass("active")
+      .siblings()
+      .removeClass("active");
 
-        e.preventDefault();
-    });
+    e.preventDefault();
+  });
 });
 
 //Copy Text to the Clipboard
 function copyToClipboard(element) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val($(element).text()).select();
-    document.execCommand("copy");
-    $temp.remove();
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+
+  // let users know that items are copied to the clipboard
+  $("#message").empty();
+  $("#message").text(
+    "Copied selected terms to clipboard! Now go change the world!"
+  );
 }
 
-$('#file-upload').click(function () {
-    // empty out results when new image is uploaded
-
-    $(".results").empty()
-
-    $(".hashTag-results").empty()
-})
+$("#file-upload").click(function() {
+  // empty out results when new image is uploaded
+  $(".results").empty();
+  $(".hashTag-results").empty();
+  $("#message").empty();
+});
