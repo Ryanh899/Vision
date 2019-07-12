@@ -16,7 +16,6 @@ var hashArr = [];
 //seo array
 var seoArr = [];
 
-
 //constructor for new request object to be passed into google vision
 function addRequests(picData) {
     this.request = {};
@@ -206,7 +205,7 @@ $(document.body).on("click", ".newButton", function () {
             console.log(result)
             //creating buttons to push into hash and seo arrays
             $(".results").append(
-                `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
+                `<button class="se o-pick btn-light ro unded m-2" data-attribute="${result}"> ${result}`
             );
             $(".hashTag-results").append(
                 `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
@@ -228,12 +227,8 @@ $(document.body).on("click", ".newButton", function () {
                 console.log(hashTag);
 
                 //creating buttons to push into hash and seo arrays
-                $(".results").append(
-                    `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
-                );
-                $(".hashTag-results").append(
-                    `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
-                );
+                $(".results").append(`<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`);
+                     $(".hashTag-results").append(`<button class="hash-pick btn-light rounded m-2"   data-attribute="${hashTag}"> ${hashTag}`);
             });
         }
     });
@@ -274,10 +269,11 @@ $(document.body).on("click", ".newButton", function () {
 
 //push results into SEO array
 $(document.body).on("click", ".seo-pick", function () {
-    var seoVal = $(this).attr("data-attribute");
-
-    console.log(seoVal);
+    var seoVal = $(this).attr("data-attribute"); 
+        console.log(this);
+    console.log(typeof seoVal);
     if (!seoArr.includes(seoVal)) {
+        $(this).toggleClass('clicked-seo');
         seoArr.push(seoVal);
         console.log(seoArr);
         // let users know that an seo search is complete
@@ -285,7 +281,11 @@ $(document.body).on("click", ".seo-pick", function () {
         $("#message").text(`"${seoVal}" clicked!`);
     } else {
         console.log("already exists");
-
+        $(this).toggleClass('clicked-seo');
+        var remove = $(this).attr('data-attribute')
+        console.log(remove)
+        seoArr = arrayRemove(seoArr, seoVal);
+        console.log(seoArr)
         // let users know that an seo search already exists
         $("#message").empty();
         $("#message").text(
@@ -299,6 +299,7 @@ $(document.body).on("click", ".hash-pick", function () {
     var hashVal = $(this).attr("data-attribute");
     console.log(hashVal);
     if (!hashArr.includes(hashVal)) {
+        $(this).toggleClass('clicked-hash');
         hashArr.push(hashVal);
         console.log(hashArr);
 
@@ -308,7 +309,9 @@ $(document.body).on("click", ".hash-pick", function () {
             `"${hashVal}" clicked!`
         );
     } else {
+        $(this).toggleClass('clicked-hash');
         console.log("already exists");
+        hashArr = arrayRemove(hashArr, hashVal);
         // let users know that an hash search already exists
         $("#message").empty();
         $("#message").text(
@@ -360,4 +363,12 @@ $("#file-upload").click(function () {
     $(".hashTag-results").empty();
     $("#message").empty();
 });
+
+function arrayRemove(arr, value) {
+
+   return arr.filter(function(ele){
+       return ele != value;
+   });
+
+}
 
