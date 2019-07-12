@@ -1,5 +1,9 @@
 /*Color Pallettes: (#6C98C6 - Windstorm (Darker Blue))   (#98B7D7 - Carolina Blue (lighter))   (#EF7239 - Orange Crush)   (#F3F3F3 - White Smoke)           */
 
+html{
+	min-height:100%
+}
+
 img {
 	height: 200px; 
 	width: 300px; 
@@ -12,7 +16,7 @@ body{
 	font-size: 16px;
 	font-family: 'Raleway', sans-serif;
 	background-position: no-repeat;
-    background-size: cover;
+	background-size: cover;
 }
 
 .contentMain{
