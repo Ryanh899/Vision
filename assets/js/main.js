@@ -130,8 +130,8 @@ $(document.body).on("click", ".newButton", function () {
     var searchQuery = $(this).attr("value");
 
     // new vars for searchQuery with only alphanumeric, with spaces instead and deletion
-    var searchQuerySpace = searchQuery.replace(/[\W_]+/g,' ')
-    var searchQueryTrim = searchQuery.replace(/[\W_]+/g,'')
+    var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
+    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '')
 
     // let users know that a web entity is clicked
     $("#message").empty();
@@ -149,8 +149,7 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
-        `Searching for: "${searchQuerySpace}" in Webster and Words API`
-        `Searching for: "${searchQuery}" in UrbanDic`
+        `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
@@ -161,7 +160,7 @@ $(document.body).on("click", ".newButton", function () {
 
         // add definition to DOM
         $(".definition").text(
-            `What the Internet thinks: ${response.list[0].definition}`
+            `Definition: ${response.list[0].definition}`
         );
     });
 
@@ -193,7 +192,7 @@ $(document.body).on("click", ".newButton", function () {
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
             synonymArray.unshift(searchQueryTrim)
-           
+
             // loop through synonym array and create hashtags / seo and append it to the DOM
             synonymArray.forEach(function (element) {
                 var result = element.wd;
