@@ -99,7 +99,7 @@ function encodeImageFileAsURL(element) {
                         }'> ${element.description}`;
 
                     //check for Description Key-Master Pair
-                    if (message.description) {
+                    if (element.description) {
 
                         // taking new buttons made and append to buttons dom
                         $(".buttons").append(newButton);
