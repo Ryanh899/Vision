@@ -21,37 +21,37 @@ function addRequests(picData) {
         content: picData
     };
     this.request.requests[0].features = [{
-        type: "LABEL_DETECTION",
-        maxResults: 1
-    },
-    {
-        type: "FACE_DETECTION",
-        maxResults: 10
-    },
-    {
-        type: "OBJECT_LOCALIZATION",
-        maxResults: 10
-    },
-    {
-        type: "DOCUMENT_TEXT_DETECTION",
-        maxResults: 10
-    },
-    {
-        type: "LANDMARK_DETECTION",
-        maxResults: 10
-    },
-    {
-        type: "WEB_DETECTION",
-        maxResults: 10
-    },
-    {
-        type: "SAFE_SEARCH_DETECTION",
-        maxResults: 10
-    },
-    {
-        type: "IMAGE_PROPERTIES",
-        maxResults: 10
-    }
+            type: "LABEL_DETECTION",
+            maxResults: 1
+        },
+        {
+            type: "FACE_DETECTION",
+            maxResults: 10
+        },
+        {
+            type: "OBJECT_LOCALIZATION",
+            maxResults: 10
+        },
+        {
+            type: "DOCUMENT_TEXT_DETECTION",
+            maxResults: 10
+        },
+        {
+            type: "LANDMARK_DETECTION",
+            maxResults: 10
+        },
+        {
+            type: "WEB_DETECTION",
+            maxResults: 10
+        },
+        {
+            type: "SAFE_SEARCH_DETECTION",
+            maxResults: 10
+        },
+        {
+            type: "IMAGE_PROPERTIES",
+            maxResults: 10
+        }
     ];
 }
 
@@ -131,7 +131,9 @@ $(document.body).on("click", ".newButton", function () {
 
     // new vars for searchQuery with only alphanumeric, with spaces instead and deletion
     var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
+
     var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '')
+
 
     // let users know that a web entity is clicked
     $("#message").empty();
@@ -149,7 +151,9 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
+
         `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
+
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
@@ -177,21 +181,32 @@ $(document.body).on("click", ".newButton", function () {
             let hashTag = addHash.concat(result)
             console.log(hashTag)
             console.log(result)
-            $('.results').append(`<div> ${result}`)
-            $('.hashTag-results').append(`<div> ${hashTag}`)
+            //creating buttons to push into hash and seo arrays
+            $(".results").append(
+                `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
+            );
+            $(".hashTag-results").append(
+                `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
+            );
         } else if (!response[0].def) {
             let result = searchQueryTrim;
             let addHash = '#'
             let hashTag = addHash.concat(result)
             console.log(hashTag)
             console.log(result)
-            $('.results').append(`<div> ${result}`)
-            $('.hashTag-results').append(`<div> ${hashTag}`)
+            //creating buttons to push into hash and seo arrays
+            $(".results").append(
+                `<button class="seo-pick btn-light rounded m-2" data-attribute="${result}"> ${result}`
+            );
+            $(".hashTag-results").append(
+                `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> ${hashTag}`
+            );
         } else {
 
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
             synonymArray.unshift(searchQueryTrim)
+
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
             synonymArray.forEach(function (element) {
