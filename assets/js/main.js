@@ -1,3 +1,5 @@
+$('#spinner').hide();
+
 //variable for base64 images
 var baseCode;
 
@@ -13,6 +15,7 @@ var hashArr = [];
 //seo array
 var seoArr = [];
 
+
 //constructor for new request object to be passed into google vision
 function addRequests(picData) {
     this.request = {};
@@ -21,37 +24,37 @@ function addRequests(picData) {
         content: picData
     };
     this.request.requests[0].features = [{
-            type: "LABEL_DETECTION",
-            maxResults: 1
-        },
-        {
-            type: "FACE_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "OBJECT_LOCALIZATION",
-            maxResults: 10
-        },
-        {
-            type: "DOCUMENT_TEXT_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "LANDMARK_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "WEB_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "SAFE_SEARCH_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "IMAGE_PROPERTIES",
-            maxResults: 10
-        }
+        type: "LABEL_DETECTION",
+        maxResults: 1
+    },
+    {
+        type: "FACE_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "OBJECT_LOCALIZATION",
+        maxResults: 10
+    },
+    {
+        type: "DOCUMENT_TEXT_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "LANDMARK_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "WEB_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "SAFE_SEARCH_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "IMAGE_PROPERTIES",
+        maxResults: 10
+    }
     ];
 }
 
@@ -70,13 +73,15 @@ function encodeImageFileAsURL(element) {
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode);
         $("#picDiv").append(
-            `<img class="rounded img-fluid" src="${reader.result}">`
+            `<img class="rounded img-fluid m-2" src="${reader.result}">`
         );
 
         // empty buttoms and let user know that vision is searching for results
         $(".buttons").empty();
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
+        $('#spinner').show();
+
         var file = $('#upload-photo').val();
         console.log(file.substr(12));
         console.log(requestArr[n].request);
@@ -89,6 +94,7 @@ function encodeImageFileAsURL(element) {
             )
             .then(function (response) {
                 $(".buttons").empty();
+
                 // get web entities and create new buttons for each web entity
                 let webArray = response.data.responses[0].webDetection.webEntities;
 
@@ -109,6 +115,8 @@ function encodeImageFileAsURL(element) {
                         $("#message").text(
                             "Search complete! Click on a button to dive deeper!"
                         );
+                        $('#spinner').hide();
+
                         console.log(element);
                     }
                 });
@@ -125,6 +133,7 @@ $(document.body).on("click", ".newButton", function () {
 
     $(".results").empty();
     $(".hashTag-results").empty();
+    $('#spinner').show();
 
     // search term
     var searchQuery = $(this).attr("value");
@@ -133,13 +142,6 @@ $(document.body).on("click", ".newButton", function () {
     var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
 
     var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '')
-
-
-    // let users know that a web entity is clicked
-    $("#message").empty();
-    $("#message").text(
-        `"${searchQuery}" has been clicked! Searching for more relevant terms!`
-    );
 
     // key to api
     var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
@@ -151,9 +153,7 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
-
         `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
-
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
@@ -161,6 +161,7 @@ $(document.body).on("click", ".newButton", function () {
         url: urbanDicApiRoute
     }).done(function (response) {
         console.log(`UrbanDic Response: ${response.list[0].definition}`);
+        $('#spinner').hide();
 
         // add definition to DOM
         $(".definition").text(
@@ -254,7 +255,7 @@ $(document.body).on("click", ".newButton", function () {
                     // let users know that a web entity is clicked
                     $("#message").empty();
                     $("#message").text(
-                        `Search complete! Check out the more relevant terms below for "${searchQuery}"!`
+                        `Search complete! More relevant terms below for "${searchQuery}"!`
                     );
                 });
             }
@@ -266,11 +267,6 @@ $(document.body).on("click", ".newButton", function () {
 $(document.body).on("click", ".seo-pick", function () {
     var seoVal = $(this).attr("data-attribute");
 
-    // let users know that an seo button is clicked
-    $("#message").empty();
-    $("#message").text(
-        `"${seoVal}" has been clicked! Searching for more relevant terms!`
-    );
     console.log(seoVal);
     if (!seoArr.includes(seoVal)) {
         seoArr.push(seoVal);
@@ -356,3 +352,4 @@ $("#file-upload").click(function () {
     $(".hashTag-results").empty();
     $("#message").empty();
 });
+
