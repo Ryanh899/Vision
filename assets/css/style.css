@@ -27,10 +27,6 @@ body{
 	
 }
 
-.display-4{
-	margin-left: 10%;
-}
-
 .lead{
 	margin-left: 10%;
 	font-size: 18px;
@@ -116,7 +112,8 @@ ul {
 
 .picDiv{
     width: 100%;
-    min-width: 500px;
+	min-width: 500px;
+
 }
 .photoDisplay{
 	background-color: #dfdede;
@@ -165,20 +162,7 @@ ul {
 	color: white;
 }
 
-  
-/* #upload {
-	position: relative;
-	overflow: hidden;
-  }
-  #upload-btn {
-	position: absolute;
-	font-size: 50px;
-	opacity: 0;
-	right: 0;
-	top: 0;
-  } */
-
-  #upload {
+#upload {
 	cursor: pointer;
 	/* Style as you please, it will become the visible UI component. */
  }
@@ -188,3 +172,19 @@ ul {
 	position: absolute;
 	z-index: -1;
  }
+
+ .message-font {
+	 color: white;
+ }
+
+.message-font-header {
+	border: .5px solid black;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin: 2px;
+	color: black;
+}
+
+.definition {
+	color: black;
+}
