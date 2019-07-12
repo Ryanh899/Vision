@@ -1,3 +1,5 @@
+$('#spinner').hide();
+
 //variable for base64 images
 var baseCode;
 
@@ -13,6 +15,7 @@ var hashArr = [];
 //seo array
 var seoArr = [];
 
+
 //constructor for new request object to be passed into google vision
 function addRequests(picData) {
     this.request = {};
@@ -21,37 +24,37 @@ function addRequests(picData) {
         content: picData
     };
     this.request.requests[0].features = [{
-            type: "LABEL_DETECTION",
-            maxResults: 1
-        },
-        {
-            type: "FACE_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "OBJECT_LOCALIZATION",
-            maxResults: 10
-        },
-        {
-            type: "DOCUMENT_TEXT_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "LANDMARK_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "WEB_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "SAFE_SEARCH_DETECTION",
-            maxResults: 10
-        },
-        {
-            type: "IMAGE_PROPERTIES",
-            maxResults: 10
-        }
+        type: "LABEL_DETECTION",
+        maxResults: 1
+    },
+    {
+        type: "FACE_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "OBJECT_LOCALIZATION",
+        maxResults: 10
+    },
+    {
+        type: "DOCUMENT_TEXT_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "LANDMARK_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "WEB_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "SAFE_SEARCH_DETECTION",
+        maxResults: 10
+    },
+    {
+        type: "IMAGE_PROPERTIES",
+        maxResults: 10
+    }
     ];
 }
 
@@ -70,14 +73,16 @@ function encodeImageFileAsURL(element) {
         baseCode = reader.result.replace(/^data:image\/[a-z]+;base64,/, "");
         newRequest(baseCode);
         $("#picDiv").append(
-            `<img class="rounded img-fluid" src="${reader.result}">`
+            `<img class="rounded img-fluid m-2" src="${reader.result}">`
         );
 
         // empty buttoms and let user know that vision is searching for results
         $(".buttons").empty();
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
-        var file = $("#file-upload").val();
+        $('#spinner').show();
+
+        var file = $('#upload-photo').val();
         console.log(file.substr(12));
         console.log(requestArr[n].request);
 
@@ -89,6 +94,7 @@ function encodeImageFileAsURL(element) {
             )
             .then(function (response) {
                 $(".buttons").empty();
+
                 // get web entities and create new buttons for each web entity
                 let webArray = response.data.responses[0].webDetection.webEntities;
 
@@ -109,6 +115,8 @@ function encodeImageFileAsURL(element) {
                         $("#message").text(
                             "Search complete! Click on a button to dive deeper!"
                         );
+                        $('#spinner').hide();
+
                         console.log(element);
                     }
                 });
@@ -125,19 +133,15 @@ $(document.body).on("click", ".newButton", function () {
 
     $(".results").empty();
     $(".hashTag-results").empty();
+    $('#spinner').show();
 
     // search term
     var searchQuery = $(this).attr("value");
 
     // new vars for searchQuery with only alphanumeric, with spaces instead and deletion
     var searchQuerySpace = searchQuery.replace(/[\W_]+/g, ' ')
-    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '').toLowerCase()
 
-    // let users know that a web entity is clicked
-    $("#message").empty();
-    $("#message").text(
-        `"${searchQuery}" has been clicked! Searching for more relevant terms!`
-    );
+    var searchQueryTrim = searchQuery.replace(/[\W_]+/g, '').toLowerCase()
 
     // key to api
     var apiKey = "00c5bc8f-694b-401c-8e1a-3d53225e08f3";
@@ -149,8 +153,7 @@ $(document.body).on("click", ".newButton", function () {
     var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
-        `Searching for: "${searchQuerySpace}" in Webster and Words API
-        Searching for: "${searchQuery}" in UrbanDic`
+        `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
     );
 
     // ajax get method to urban dictionary to get definition of searchquery
@@ -158,10 +161,11 @@ $(document.body).on("click", ".newButton", function () {
         url: urbanDicApiRoute
     }).done(function (response) {
         console.log(`UrbanDic Response: ${response.list[0].definition}`);
+        $('#spinner').hide();
 
         // add definition to DOM
         $(".definition").text(
-            `What the Internet thinks: ${response.list[0].definition}`
+            `Definition: ${response.list[0].definition}`
         );
     });
 
@@ -202,11 +206,8 @@ $(document.body).on("click", ".newButton", function () {
 
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
-            synonymArray.unshift({
-                wd: searchQueryTrim
-            })
+            synonymArray.unshift({wd: searchQueryTrim})
 
-            console.log(synonymArray)
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
             synonymArray.forEach(function (element) {
@@ -214,9 +215,7 @@ $(document.body).on("click", ".newButton", function () {
                 let addHash = "#";
                 var hashTag = addHash.concat(result);
                 console.log(`synonym: ${element.wd}`);
-
                 hashTag = hashTag.split(" ").join();
-
                 console.log(hashTag);
 
                 //creating buttons to push into hash and seo arrays
@@ -244,10 +243,11 @@ $(document.body).on("click", ".newButton", function () {
                     console.log(`***********${item}`);
                     hashTag = item.split(" ").join("");
                     console.log(item);
+
+                    // put results of term on the DOM
                     $(".results").append(
                         `<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`
                     );
-
                     $(".hashTag-results").append(
                         `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
                     );
@@ -255,7 +255,7 @@ $(document.body).on("click", ".newButton", function () {
                     // let users know that a web entity is clicked
                     $("#message").empty();
                     $("#message").text(
-                        `Search complete! Check out the more relevant terms below for "${searchQuery}"!`
+                        `"${searchQuery}" clicked!`
                     );
                 });
             }
@@ -267,18 +267,13 @@ $(document.body).on("click", ".newButton", function () {
 $(document.body).on("click", ".seo-pick", function () {
     var seoVal = $(this).attr("data-attribute");
 
-    // let users know that an seo button is clicked
-    $("#message").empty();
-    $("#message").text(
-        `"${seoVal}" has been clicked! Searching for more relevant terms!`
-    );
     console.log(seoVal);
     if (!seoArr.includes(seoVal)) {
         seoArr.push(seoVal);
         console.log(seoArr);
         // let users know that an seo search is complete
         $("#message").empty();
-        $("#message").text(`See below for more results from "${seoVal}"!`);
+        $("#message").text(`"${seoVal}" clicked!`);
     } else {
         console.log("already exists");
         var remove = $(this).attr('data-attribute')
@@ -289,8 +284,7 @@ $(document.body).on("click", ".seo-pick", function () {
         // let users know that an seo search already exists
         $("#message").empty();
         $("#message").text(
-            `"${seoVal}" has already been searched! 
-      Please choose another term!`
+            `"${seoVal}" has already been searched!`
         );
     }
 });
@@ -302,17 +296,18 @@ $(document.body).on("click", ".hash-pick", function () {
     if (!hashArr.includes(hashVal)) {
         hashArr.push(hashVal);
         console.log(hashArr);
+
         // let users know that a hash search is complete
         $("#message").empty();
         $("#message").text(
-            `"${hashVal}" has already been searched! Please choose another term!`
+            `"${hashVal}" clicked!`
         );
     } else {
         console.log("already exists");
         // let users know that an hash search already exists
         $("#message").empty();
         $("#message").text(
-            `"${hashVal}" has already been searched! Please choose another term!`
+            `"${hashVal}" has already been searched!`
         );
     }
 });
@@ -350,7 +345,7 @@ function copyToClipboard(element) {
     // let users know that items are copied to the clipboard
     $("#message").empty();
     $("#message").text(
-        "Copied selected terms to clipboard! Now go change the world!"
+        "Copied to clipboard!"
     );
 }
 
@@ -360,3 +355,4 @@ $("#file-upload").click(function () {
     $(".hashTag-results").empty();
     $("#message").empty();
 });
+
