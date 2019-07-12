@@ -77,7 +77,7 @@ function encodeImageFileAsURL(element) {
         $(".buttons").empty();
         $("#message").empty();
         $("#message").text("Image has been uploaded! Searching for results...");
-        var file = $("#file-upload").val();
+        var file = $('#upload-photo').val();
         console.log(file.substr(12));
         console.log(requestArr[n].request);
 
@@ -199,9 +199,7 @@ $(document.body).on("click", ".newButton", function () {
                 let addHash = "#";
                 var hashTag = addHash.concat(result);
                 console.log(`synonym: ${element.wd}`);
-
                 hashTag = hashTag.split(" ").join();
-
                 console.log(hashTag);
 
                 //creating buttons to push into hash and seo arrays
@@ -229,10 +227,11 @@ $(document.body).on("click", ".newButton", function () {
                     console.log(`***********${item}`);
                     hashTag = item.split(" ").join("");
                     console.log(item);
+
+                    // put results of term on the DOM
                     $(".results").append(
                         `<button class="seo-pick btn-light rounded m-2" data-attribute="${item}"> ${item}`
                     );
-
                     $(".hashTag-results").append(
                         `<button class="hash-pick btn-light rounded m-2" data-attribute="${hashTag}"> #${hashTag}`
                     );
@@ -283,6 +282,7 @@ $(document.body).on("click", ".hash-pick", function () {
     if (!hashArr.includes(hashVal)) {
         hashArr.push(hashVal);
         console.log(hashArr);
+
         // let users know that a hash search is complete
         $("#message").empty();
         $("#message").text(
