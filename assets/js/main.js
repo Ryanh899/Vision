@@ -158,7 +158,7 @@ $(document.body).on("click", ".newButton", function () {
     var websterApiRoute = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${searchQuerySpace}?key=${apiKey}`;
 
     // url, no apikey needed
-    var urbanDicApiRoute = `http://api.urbandictionary.com/v0/define?term=${searchQuery}`;
+    var urbanDicApiRoute = `https://api.urbandictionary.com/v0/define?term=${searchQuery}`;
 
     console.log(
         `Searching for: "${searchQuerySpace}" in Webster and Words API | Searching for: "${searchQuery}" in UrbanDic`
@@ -215,7 +215,7 @@ $(document.body).on("click", ".newButton", function () {
 
             // webster's synonym's response + push searchqueryTrim to response
             let synonymArray = response[0].def[0].sseq[0][0][1].syn_list[0];
-            synonymArray.unshift({wd: searchQueryTrim})
+            synonymArray.unshift({ wd: searchQueryTrim })
 
 
             // loop through synonym array and create hashtags / seo and append it to the DOM
@@ -229,7 +229,7 @@ $(document.body).on("click", ".newButton", function () {
 
                 //creating buttons to push into hash and seo arrays
                 $(".results").append(`<button class="seo-pick btn btn-light rounded m-2" data-attribute="${result}"> ${result}`);
-                     $(".hashTag-results").append(`<button class="hash-pick btn btn-light rounded m-2"   data-attribute="${hashTag}"> ${hashTag}`);
+                $(".hashTag-results").append(`<button class="hash-pick btn btn-light rounded m-2"   data-attribute="${hashTag}"> ${hashTag}`);
             });
         }
     });
@@ -270,8 +270,8 @@ $(document.body).on("click", ".newButton", function () {
 
 //push results into SEO array
 $(document.body).on("click", ".seo-pick", function () {
-    var seoVal = $(this).attr("data-attribute"); 
-        console.log(this);
+    var seoVal = $(this).attr("data-attribute");
+    console.log(this);
     console.log(typeof seoVal);
     if (!seoArr.includes(seoVal)) {
         $(this).toggleClass('clicked-seo');
@@ -368,9 +368,9 @@ $("#file-upload").click(function () {
 // remove term from array
 function arrayRemove(arr, value) {
 
-   return arr.filter(function(ele){
-       return ele != value;
-   });
+    return arr.filter(function (ele) {
+        return ele != value;
+    });
 
 }
 
