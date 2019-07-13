@@ -1,11 +1,29 @@
-Image SEO/Hashtag Generator
+## Vision
+### Image SEO/Hashtag Generator
 
-Description: Google Vision API analyzes images then Webster and Words API generates SEO's and Hashtags.
+**Concept:**  Application to assist user in creating a social media post. Get relevant keywords and terms from an image for generating SEO / Hashtags.
 
-Application Life Cycle: Upload image and convert to base64. Base64 image passed into Google Vision API. Parse Google Vision API web entity results. Pass results into Webster-Thesaurus and Words API. Display SEO/Hashtag results from Webster and Words to DOM. User then selects Hashtags or SEO terms and a clipboard is compiled. User impliments application reults on social media.
+**Motivation:** Reduce time spent generating relevant SEO / Hashtags for a social platform post.
 
-Project Management Software Link: https://trello.com/b/18invRsg/underpar-project
+**Design Process:** 
+- Upload image to Google Vision API
+- Return relevant image entities
+- Search synonyms and definition from a relevant entity
+- Users can copy selected SEO / Hashtags to clipboard
 
-Contributers: Alex Hwong, Eric Mackensen, Ryan Hazzard, Vincent Nguyen, Zac Morton
+**Technologies:**
+- Google Vision API
+- Webster-Thesaurus API
+- Words API
+- Urban Dictionary API
+- AJAX
+- Axios
+- HTML5
+- CSS3
+- Javascript
+- jQuery
+- Bootstrap
+
+**Contributers:** Alex Hwong, Eric Mackensen, Ryan Hazzard, Vincent Nguyen, Zac Morton
 
 
