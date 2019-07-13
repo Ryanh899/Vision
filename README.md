@@ -5,7 +5,8 @@
 
 **Motivation:** Reduce time spent generating relevant SEO / Hashtags for a social platform post.
 
-**Design Process:** 
+**Design:** 
+- Create a single page application which utilizes Google Vision to return relevant keywords of an image
 - Upload image to Google Vision API
 - Return relevant image entities
 - Search synonyms and definition from a relevant entity
@@ -25,5 +26,3 @@
 - Bootstrap
 
 **Contributers:** Alex Hwong, Eric Mackensen, Ryan Hazzard, Vincent Nguyen, Zac Morton
-
-
