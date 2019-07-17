@@ -10,16 +10,17 @@ img {
 	margin-left: 5%;
 }
 
-body{
-	background-image: linear-gradient(-45deg, #EF7239, #4bbef8);
+body {
+	background-image: linear-gradient(-45deg, rgb(138, 66, 32), #255e7a);
 	color: #21acf1;
 	font-size: 16px;
 	font-family: 'Raleway', sans-serif;
 	background-position: no-repeat;
 	background-size: cover;
+	background-repeat: no-repeat;
 }
 
-.contentMain{
+.contentMain {
 	width:86%;
 	margin-left: 7%;
 	margin-right: 7%;
@@ -41,13 +42,9 @@ body{
 }
 /*----- Tabs -----*/
 .tabs {
-	/* border-top: solid 5px; */
 	background-image: linear-gradient(-45deg, #4bbef8, rgb(233, 145, 104));
 	padding-top: 3px;
 	display: inline-flex;
-	display: inline-block;
-	border-left: solid #dfdede;
-	border-right: solid #dfdede;
 }
 
 /*----- Tab Links -----*/
@@ -68,7 +65,6 @@ body{
 	padding:9px 15px;
 	display:inline-block;
 	border-radius:3px 3px 0px 0px;
-	/* background:#7FB5DA; */
 	font-size:16px;
 	font-weight:600;
 	color: white;
@@ -92,7 +88,6 @@ li.active a, li.active a:hover {
 	box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
 	background: #dfdede;
 	color: #4bbef8;
-	margin-bottom: 5px;
 }
 
 .tab {
@@ -123,7 +118,6 @@ ul {
 	background-color: #dfdede;
 	width: 90%;
 	margin: 2%;
-	
 }
 
 .file-bar{
@@ -168,7 +162,6 @@ ul {
 
 #upload {
 	cursor: pointer;
-	/* Style as you please, it will become the visible UI component. */
  }
  
  #upload-photo {
@@ -182,11 +175,11 @@ ul {
  }
 
 .message-font-header {
-	border: .5px solid black;
+	border: .5px solid white;
 	border-radius: 5px;
 	padding: 5px 10px;
 	margin: 2px;
-	color: black;
+	color: white;
 }
 
 .definition {
@@ -210,4 +203,8 @@ ul {
  background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
  background-image: linear-gradient(to bottom, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
 	color: white; 
+}
+
+.darkmode {
+	background-color: #424242;
 }
