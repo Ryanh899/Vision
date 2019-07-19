@@ -92,14 +92,13 @@ function encodeImageFileAsURL(element) {
         console.log(requestArr[n].request);
 
         // axios post method to vision api; pass in the constructed object for post request
-        axios
-            .post(
+        axios.post(
                 "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBk4y2OKobnIOgdt4ggGlK8pbjHry4UpPI",
                 requestArr[n].request
             )
             .then(function (response) {
                 $(".buttons").empty();
-
+                console.log(response)
                 // Show copy button
                 $('#submit-button').show()
 
